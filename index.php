@@ -5,7 +5,7 @@ include ('nav.php');
 ?>
 
 <article>
-    bob was here
+    bob was here and is stii here
 </article>
 
 <?php
