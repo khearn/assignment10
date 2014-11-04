@@ -1,0 +1,158 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 31, 2014, 7:24:31 PM
+    Author     : kyliehearn
+*/
+
+
+/*  ---------------- General ------------------- */
+* {
+    
+}
+
+aside {
+    background-color: #EFEFD0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+/*  ---------------- Header ------------------- */
+header {
+    text-align: center;
+}
+
+/*  ---------------- Nav ------------------- */
+nav {
+    border: medium solid #A1E2FF;
+    background-color: #A1E2FF;
+    border-radius: 10px;
+}
+
+nav ul {
+    
+}
+
+nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    list-style: none;
+}
+
+il {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+li a {
+    color: #E6E8FA;
+    text-decoration: underline;
+    padding: 10px;
+    border-color: #162252;
+    background-color: #162252;
+    border-radius: 10px;
+}
+
+li.activePage {
+        color: #162252;
+    text-decoration: underline;
+    padding: 10px;
+    border-color: #E6E8FA;
+    background-color: #E6E8FA;
+    border-radius: 10px;
+}
+
+li a:hover {
+    color: #162252;
+    text-decoration: underline;
+    padding: 10px;
+    border-color: #E6E8FA;
+    background-color: #E6E8FA;
+    border-radius: 10px;
+}
+
+/*  ----------------  Home  ------------------- */
+#index {
+    
+}
+
+/*  ----------------  Register  ------------------- */
+#register {
+    
+}
+
+/*  ----------------  Profile  ------------------- */
+#profile {
+    
+}
+
+/*  ----------------  Manage Tasks  ------------------- */
+#manage_task {
+    
+}
+
+/*  ----------------  Random Task  ------------------- */
+#random_task {
+    
+}
+
+/*  ----------------  About Us  ------------------- */
+#about_us {
+    
+}
+
+/*  ----------------  Forms  ------------------- */
+
+
+
+/*  ----------------  Calander  ------------------- */
+
+table {
+    
+}
+
+tr {
+     
+}
+
+tr th {
+    
+}
+
+th {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+tr td {
+    
+}
+
+td {
+    
+}
+
+th, td {
+    border: solid;
+    border-color: #000;
+    border-width: 2px;
+    border-style: inset;
+    width: 50px;
+}
+
+/*  ----------------  Images  ------------------- */
+
+
+
+/*  ----------------  Footer  ------------------- */
+footer {
+    display: block;
+    
+}
+
