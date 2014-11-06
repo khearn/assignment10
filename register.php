@@ -71,8 +71,8 @@ if (isset($_POST["btnSubmit"])) {
 
     $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $lname;
-    
-    
+
+
 
 
     //validate
@@ -85,10 +85,10 @@ if (isset($_POST["btnSubmit"])) {
     }
 
     if ($password == "") {
-        $errorMsg[] = "Please enter your first name";
+        $errorMsg[] = "Please enter a password";
         $passwordERROR = true;
     } elseif (!verifyAlphaNum($password)) {
-        $errorMsg[] = "Your first name appears to have extra character.";
+        $errorMsg[] = "Your password appears to have extra character.";
         $passwordERROR = true;
     }
 
@@ -241,7 +241,7 @@ if (isset($_POST["btnSubmit"])) {
                                name="chkMarried" 
                                value="2">Married
                     </label>
-                  
+
                     <!--
                     <label for="chkProfession">
                         <input type="checkbox" 
@@ -249,15 +249,17 @@ if (isset($_POST["btnSubmit"])) {
                                name="chkProfession" 
                                value="3">Profession: 
                                     <input type="text" name="profession"
-                                           value="<?php print $profession ?>"
+                                           value="<?php //print $profession ?>"
                                            tabindex="500" maxlength="45" placeholder="Please enter your job title"
-                                           <?php if ($professionERROR) print 'class="mistake"'; ?>
+                    <?php //if ($professionERROR) print 'class="mistake"'; ?>
                                            onfocus="this.select()"
                                     >
                                            
                     </label>
                     -->
                 </fieldset>
+                <input type="submit" id="btnSubmit" name="btnSubmit" value="Sign Up" tabindex="900" class="button">
+
             </fieldset>
 
         </form>

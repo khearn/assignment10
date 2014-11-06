@@ -11,7 +11,7 @@ and open the template in the editor.
 
 /*  ---------------- General ------------------- */
 * {
-    
+
 }
 
 p {
@@ -46,7 +46,7 @@ nav {
 }
 
 nav ul {
-    
+
 }
 
 nav ul li {
@@ -72,7 +72,7 @@ li a {
 }
 
 li.activePage {
-        color: #162252;
+    color: #162252;
     text-decoration: underline;
     padding: 10px;
     border-color: #E6E8FA;
@@ -91,32 +91,148 @@ li a:hover {
 
 /*  ----------------  Home  ------------------- */
 #index {
-    
+
 }
 
 /*  ----------------  Register  ------------------- */
-#register {
+form#frmRegister    {
+    background: -webkit-gradient(linear, bottom, left 175px, from(#CCCCCC), to(#EEEEEE));
+    background: -moz-linear-gradient(bottom, #CCCCCC, #EEEEEE, 175px);
+    margin:auto;
+    position:relative;
+    width:580px;
     
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 24px;
+    font-weight: bold;
+    color: #09C;
+    text-decoration: none;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding:10px;
+    border: 1px solid #999;
+    border: inset 1px solid #333;
+    -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+input    {
+    width:500px;
+    display:block;
+    border: 1px solid #999;
+    height: 25px;
+    -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+input.button {
+    width:100px;
+    right:20px;
+    bottom:20px;
+    background:#09C;
+    color:#fff;
+    font-family: Tahoma, Geneva, sans-serif;
+    height:30px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    border: 1px solid #999;
+    margin-top: 20px;
+}
+
+input.button:hover {
+    background:#fff;
+    color:#09C;
+}
+
+input:focus {
+    border: 1px solid #09C;
+}
+
+/* ------- FORM -------- */
+#form article#main, a, footer, p{
+    background-color:rgba(255, 255, 255, 0.8);
+}
+#form article#main{
+    float: none;
+    margin: auto; /* because of the fixed width this centers the form */
+    text-align: left;
+    max-width: 600px; /* not repsonive but fixed */
+
+}
+
+
+/* need to clear any floats that may exist */
+fieldset{
+    border: 1px solid #00498e;
+    clear: both;
+}
+/* just pushes content to left side of the box. */
+/*fieldset.search{
+    float: left;
+}*/
+/* when you look at the labels this pushes then next to the input and right
+aligns them. Display block means they are each on their own line. */
+
+fieldset.search select{
+    width: 25em; /* works with above to be the same size for the boxes */
+}
+
+fieldset.wrapper {
+    border: 0;
+    margin: auto;
+}
+fieldset.wrapper legend {
+    color: #00498e;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 10px;
+}
+fieldset.wrapper > legend {
+    /* i only want the first legend ie if it follows the class wrapper */
+    font-size: 2em;
+}
+label {
+    color: #005cb3;
+    display: block;
+    font-size: .9em;
+    font-weight: bold;
+    margin-top: 10px;
+}
+/* style the errors in the form so they are visible */
+.mistake {
+    color: #fff;
+    background-color:#800;
+    border: thin solid #000;
+}
+/* style the list of errors that will show before the form */
+#errors ol li{
+    color: #ff5555;
 }
 
 /*  ----------------  Profile  ------------------- */
 #profile {
-    
+
 }
 
 /*  ----------------  Manage Tasks  ------------------- */
 #manage_task {
-    
+
 }
 
 /*  ----------------  Random Task  ------------------- */
 #random_task {
-    
+
 }
 
 /*  ----------------  About Us  ------------------- */
 #about_us {
-    
+
 }
 
 /*  ----------------  Forms  ------------------- */
@@ -126,15 +242,15 @@ li a:hover {
 /*  ----------------  Calander  ------------------- */
 
 table {
-    
+
 }
 
 tr {
-     
+
 }
 
 tr th {
-    
+
 }
 
 th {
@@ -143,11 +259,11 @@ th {
 }
 
 tr td {
-    
+
 }
 
 td {
-    
+
 }
 
 th, td {
@@ -165,6 +281,6 @@ th, td {
 /*  ----------------  Footer  ------------------- */
 footer {
     display: block;
-    
+
 }
 
