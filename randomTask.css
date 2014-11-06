@@ -120,7 +120,7 @@ form#frmRegister    {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 }
 
-input    {
+input#txtfname, input#txtlname, input#txtEmail, input#pwdPassword {
     width:500px;
     display:block;
     border: 1px solid #999;
