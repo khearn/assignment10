@@ -22,14 +22,16 @@ CREATE TABLE IF NOT EXISTS tblDemographics (
 CREATE TABLE IF NOT EXISTS tblTasks (
     fnkEmail varchar(320) NOT NULL,
     pmkTaskId int(11) NOT NULL AUTO_INCREMENT,
-    fldTask TEXT(65535) NOT NULL,
+    fldTask varchar(500) NOT NULL,
+    fldDescription TEXT(65535) NULL,
     fldToDoDate DATE NOT NULL,
     PRIMARY KEY (pmkTaskId)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS tblRandomTask (
     pmkRandomTaskId int(11) NOT NULL AUTO_INCREMENT,
-    fldRandomTask TEXT(65535) NOT NULL,
+    fldRandomTask varchar(500) NOT NULL,
+    fldDescription TEXT(65535) NULL,
     PRIMARY KEY (pmkRandomTaskId)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
