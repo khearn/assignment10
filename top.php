@@ -15,17 +15,32 @@
 
         <!--        <link rel="shortcut icon" href="eighth-note.ico" type="image/x-icon">
                 <link rel="icon" href="eighth-note.ico" type="image/x-icon">-->
+		<?php
+		$debug = false;
 
-        <?php
+		if (isset($_GET["debug"])) { // ONLY do this in a classroom environment
+    	$debug = true;
+    	}
+		?>
+		
+	<?php
+		if ($debug)
+	    print "<p>DEBUG MODE IS ON</p>";
+        
         require_once('../bin/myDatabase.php');
 
-        $dbUserName = 'khearn_writer';
+        $dbUserName = 'mljoy_writer';
         $whichPass = "w"; //flag for which one to use.
-        $dbName = 'KHEARN_RANDOM_TASK';
-        ?>
+        $dbName = 'MLJOY_RANDOM_TASK';
+        $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
+    ?>
 
     </head>
 
     <?php
-    print '<body id="' . $path_parts['filename'] . '">';
+    	print '<body id="' . $path_parts['filename'] . '">';
     ?>
+    
+ini_set('display_errors',l);
+error_reporting(E_ALL);
+    

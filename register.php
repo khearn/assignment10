@@ -2,9 +2,16 @@
 include ('top.php');
 include ('header.php');
 include ('nav.php');
+
 ?>
 
+
+
 <?php
+// SECTION: 1b Security
+//
+// define security variable to be used in SECTION 2a.
+
 //Save account creation info to database
 //security
 $yourURL = $domain . $phpSelf;
@@ -44,7 +51,41 @@ if (isset($_POST["btnSubmit"])) {
         print "<p>DEBUG MODE IS ON</p>";
 //
 // SECTION: 2 Process for when the form is submitted
-//
+if (isset($_POST["btnSubmit"])) {
+
+	$fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
+	$lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
+	$email = htmlentities($_POST["txtEmail"], ENT_QUOTES, "UTF-8");
+	//creates jumbled up thing to equal email
+	$confirm = sha1($email);
+	$approved = sha1($confirm);
+
+
+
+
+$query = "INSERT INTO tblUser(fldFirstName, fldLastName, fldEmail, fldHash, fldApprove) VALUES ('". $fname ."', '". $lname ."', '". $email ."' , '". $confirm ."', '". $approved ."')";
+            
+            
+            
+            
+            
+if ($debug) {
+	print $query; 
+}
+
+$data = array($user, $email);
+
+$records = $thisDatabase->insert($query);
+if ($debug) {
+	print "<div>" . count($records) . " records created.</div>";
+	print_r($data);
+}
+
+    $firstTime = true;
+
+    /* since it is associative array display the field names */
+  
+
 // SECTION: 2a Security
 // 
     if (!securityCheck(true)) {
@@ -114,16 +155,47 @@ if (isset($_POST["btnSubmit"])) {
     if (!$errorMsg) {
         if ($debug)
             print "<p>Form is valid</p>";
-
-        //Build Query
-    //
-        //
-        //
-        
-        
-    } // end form is valid
+    		} 
+    // end form is valid
 // execute query using a  prepared statement
 }
+
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //
+        // SECTION: 2f Create message
+        //
+        // build a message to display on the screen in section 3a and to mail
+        // to the person filling out the form (section 2g).
+        //?q means there will be a variable afterwards. 
+
+        $message = 'Welcome! Please click this link to confirm.';
+        $message .= " https://mljoy.w3.uvm.edu/cs148/assignment6.0/confirm.php?q=";
+        $message .= $confirm;
+        
+
+
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //
+        // SECTION: 2g Mail to user
+        //
+        // Process for mailing a message which contains the forms data
+        // the message was built in section 2f.
+        $to = $email; // the person who filled out the form
+        $cc = "";
+        $bcc = "";
+        $from = "WRONG site <noreply@yoursite.com>";
+
+        // subject of mail should make sense to your form
+        $todaysDate = strftime("%x");
+        $subject = "Welcome to the Real World: " . $todaysDate;
+        $headers = " ";
+
+        mail($to, $subject, $message, $headers);
+        
+    } // end form is valid
+    
+} // ends if form was submitted.
+
 
 //Display form
 ?>
