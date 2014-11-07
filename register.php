@@ -239,8 +239,16 @@ if (isset($_POST["btnSubmit"])) {
                         <input type="checkbox" 
                                id="chkMarried" 
                                name="chkMarried" 
-                               value="2">Married
+                               value="6">Married
                     </label>
+                    <label for="chkTravel">
+                        <input type="checkbox" 
+                               id="chkTravel" 
+                               name="chkTravel" 
+                               value="7">Frequent Traveler
+                    </label>
+                    
+                    
 
                     <!--
                     <label for="chkProfession">

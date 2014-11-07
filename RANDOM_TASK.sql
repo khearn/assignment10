@@ -1,10 +1,22 @@
 CREATE TABLE IF NOT EXISTS tblUsers (
     pmkEmail varchar(320) NOT NULL,
     fldPassword varchar(100) NOT NULL,
-    fldName varchar(100) NOT NULL,
+    fldFirstName varchar(100) NOT NULL,
+    fldLastName varchar(100) NOT NULL,
     fldDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     fldGender char(1) DEFAULT NULL,
     PRIMARY KEY (pmkEmail)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS tblDemographics (
+    fnkEmail varchar(320) NOT NULL,
+    fldParent boolean not null default 0,
+    fldStudent boolean not null default 0,
+    fldEmployed boolean not null default 0,
+    fldPetOwner boolean not null default 0,
+    fldMarried boolean not null default 0,
+    fldTraveler boolean not null default 0
+    
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS tblTasks (
@@ -27,12 +39,7 @@ CREATE TABLE IF NOT EXISTS tblRelationship (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE IF NOT EXISTS tblDemographics (
-    pmkUser int(11) NOT NULL AUTO_INCREMENT,
-    fnkEmail varchar(320) NOT NULL,
-    fldDemographics (need to list them all here)
-    
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 
 /* ----------------------------------------------------------------- */
 
