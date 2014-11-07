@@ -41,6 +41,3 @@
     	print '<body id="' . $path_parts['filename'] . '">';
     ?>
     
-ini_set('display_errors',l);
-error_reporting(E_ALL);
-    
