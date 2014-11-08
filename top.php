@@ -55,8 +55,4 @@
 
     <?php
     print '<body id="' . $path_parts['filename'] . '">';
-    
-    include ('login.php');
-    include "header.php";
-    include "nav.php";
     ?>

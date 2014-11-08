@@ -1,5 +1,17 @@
 <?php
-include ('top.php');
+    include "top.php";
+    include ('login.php');
+    include "header.php";
+    include "nav.php";
+?>
+
+<?php
+// Check if session is not registered, redirect back to main page. 
+// Put this code in first line of web page. 
+session_start();
+if(!session_is_registered(txtEmail)){
+header("location:main_login.php");
+}
 ?>
 
 <article>

@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS tblUsers (
     fldFirstName varchar(100) NOT NULL,
     fldLastName varchar(100) NOT NULL,
     fldDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    fldGender char(1) DEFAULT NULL,
+    fldGender char(1) DEFAULT 'F',
+    fldHash tinyint(1) NOT NULL DEFAULT '0',
     PRIMARY KEY (pmkEmail)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
