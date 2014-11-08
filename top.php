@@ -53,6 +53,7 @@
     </head>
     <!-- ################ body section ######################### -->
 
+    
     <?php
     print '<body id="' . $path_parts['filename'] . '">';
     ?>
