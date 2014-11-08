@@ -13,7 +13,7 @@
         <script src="//html5shim.googlecode.com/sin/trunk/html5.js"></script>
         <![endif]-->
 
-        <link rel="stylesheet" href="style.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="randomTask.css" type="text/css" media="screen">
 
 
         <?php
@@ -46,8 +46,8 @@
 //
         require_once('lib/security.php');
         //if ($path_parts['filename'] == "form" || $path_parts['filename'] == "crud") {
-            require "lib/validation_functions.php";
-            require "lib/mailMessage.php";
+            require "lib/validation-functions.php";
+            require "lib/mail-message.php";
         //}
         ?>	
 
@@ -57,6 +57,7 @@
     <?php
     print '<body id="' . $path_parts['filename'] . '">';
     
+    include ('login.php');
     include "header.php";
     include "nav.php";
     ?>

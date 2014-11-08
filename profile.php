@@ -1,8 +1,5 @@
 <?php
 include ('top.php');
-include ('login.php');
-include ('header.php');
-include ('nav.php');
 ?>
 
 <article>
