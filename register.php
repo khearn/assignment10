@@ -1,21 +1,28 @@
 <?php
 include "top.php";
-<<<<<<< HEAD
 include "header.php";
 include "nav.php";
 
-=======
 
-
-
->>>>>>> FETCH_HEAD
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1 Initialize variables
 //
 // SECTION: 1a.
 // variables for the classroom purposes to help find errors.
-<<<<<<< HEAD
+
+$debug = false;
+
+if (isset($_GET["debug"])) { // ONLY do this in a classroom environment
+    $debug = true;
+}
+
+//%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
+//
+// SECTION: 1 Initialize variables
+//
+// SECTION: 1a.
+// variables for the classroom purposes to help find errors.
 $debug = false;
 if (isset($_GET["debug"])) { // ONLY do this in a classroom environment
     $debug = true;
@@ -27,13 +34,13 @@ $dbUserName = get_current_user() . '_writer';
 $whichPass = "w"; //flag for which one to use.
 $dbName = strtoupper(get_current_user()) . '_RANDOM_TASK';
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
-=======
 
 $debug = false;
 
 if (isset($_GET["debug"])) { // ONLY do this in a classroom environment
     $debug = true;
 }
+
 
 if ($debug)
     print "<p>DEBUG MODE IS ON</p>";
@@ -44,25 +51,18 @@ require_once('../bin/myDatabase.php');
     $whichPass = "w"; //flag for which one to use.
     $dbName = strtoupper(get_current_user()) . '_CRUD';
 	$thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
->>>>>>> FETCH_HEAD
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1b Security
 //
 // define security variable to be used in SECTION 2a.
 $yourURL = $domain . $phpSelf;
-<<<<<<< HEAD
-=======
-
-
->>>>>>> FETCH_HEAD
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1c form variables
 //
 // Initialize variables one for each form element
 // in the order they appear on the form
-<<<<<<< HEAD
 $email = "";
 $password = "";
 $fname = "";
@@ -71,47 +71,31 @@ $date = date("Y-m-d H:i:s");
 
 $confirm = "";
 $headers = "";
-=======
-$user = "";
-$email = "";
-$confirm = "";
-$headers = "";
 
 
->>>>>>> FETCH_HEAD
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1d form error flags
 //
 // Initialize Error Flags one for each form element we validate
 // in the order they appear in section 1c.
-<<<<<<< HEAD
 $emailERROR = false;
 $passwordERROR = false;
 $fnameERROR = false;
 $lnameERROR = false;
-=======
 $userERROR = false;
 $emailERROR = false;
 
->>>>>>> FETCH_HEAD
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1e misc variables
 //
 // create array to hold error messages filled (if any) in 2d displayed in 3c.
 $errorMsg = array();
-<<<<<<< HEAD
 // array used to hold form values that will be written to a CSV file
 $dataRecord = array();
 $mailed = false; // have we mailed the information to the user?
-=======
-
 // array used to hold form values that will be written to a CSV file
-$dataRecord = array();
-
-$mailed=false; // have we mailed the information to the user?
->>>>>>> FETCH_HEAD
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //
 // SECTION: 2 Process for when the form is submitted
@@ -121,16 +105,9 @@ if (isset($_POST["btnSubmit"])) {
     $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
     $dataRecord[] = $email;
 
-<<<<<<< HEAD
     $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $password;
-=======
-	$user = htmlentities($_POST["txtUser"], ENT_QUOTES, "UTF-8");
-	$email = htmlentities($_POST["txtEmail"], ENT_QUOTES, "UTF-8");
-	//creates jumbled up thing to equal email
-	$confirm = sha1($email);
-	$approved = sha1($confirm);
->>>>>>> FETCH_HEAD
+	
 
     $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $fname;
@@ -138,24 +115,16 @@ if (isset($_POST["btnSubmit"])) {
     $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $lname;
 
-
-<<<<<<< HEAD
-    
-=======
-$query = "INSERT INTO tblUser(fldUser, fldEmail, fldHash, fldApprove) VALUES ('". $user ."', '". $email ."' , '". $confirm ."', '". $approved ."')";
-            
-            
-            
             
             
 if ($debug) {
 	print $query; 
 }
->>>>>>> FETCH_HEAD
+
 
 //creates jumbled up thing to equal email
     $confirm = sha1($email);
-    $approved = sha1($confirm);
+   // $approved = sha1($confirm);
 
 
 
@@ -197,17 +166,6 @@ if ($debug) {
         die($msg);
     }
 
-<<<<<<< HEAD
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    //
-    // SECTION: 2b Sanitize (clean) data 
-    // remove any potential JavaScript or html code from users input on the
-    // form. Note it is best to follow the same order as declared in section 1c.
-    $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
-    $dataRecord[] = $email;
-=======
->>>>>>> FETCH_HEAD
-
     
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //
@@ -218,16 +176,12 @@ if ($debug) {
     $user = htmlentities($_POST["txtUser"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $user;
 
-<<<<<<< HEAD
     $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $lname;
-=======
-
     $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
     $dataRecord[] = $email;
 
 
->>>>>>> FETCH_HEAD
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //
     // SECTION: 2c Validation
@@ -238,19 +192,8 @@ if ($debug) {
     // order that the elements appear on your form so that the error messages
     // will be in the order they appear. errorMsg will be displayed on the form
     // see section 3b. The error flag ($emailERROR) will be used in section 3c.
-<<<<<<< HEAD
-//validate
-=======
 
-    if ($user == "") {
-        $errorMsg[] = "Please choose a username";
-        $userERROR = true;
-    } elseif (!verifyAlphaNum($user)) {
-        $errorMsg[] = "Your username appears to have extra character.";
-        $userERROR = true;
-    }
 
->>>>>>> FETCH_HEAD
     if ($email == "") {
         $errorMsg[] = "Please enter your email address";
         $emailERROR = true;
@@ -259,8 +202,6 @@ if ($debug) {
         $emailERROR = true;
     }
 
-
-<<<<<<< HEAD
     if ($lname == "") {
         $errorMsg[] = "Please enter your last name";
         $lnameERROR = true;
@@ -287,8 +228,7 @@ if ($debug) {
       }
 
      */
-=======
->>>>>>> FETCH_HEAD
+
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //
     // SECTION: 2d Process Form - Passed Validation
@@ -298,21 +238,13 @@ if ($debug) {
     if (!$errorMsg) {
         if ($debug)
             print "<p>Form is valid</p>";
-<<<<<<< HEAD
-=======
 
->>>>>>> FETCH_HEAD
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //
         // SECTION: 2e Save Data
         //
         // This block saves the data to a CSV file.
-<<<<<<< HEAD
-=======
 
-       
-
->>>>>>> FETCH_HEAD
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //
         // SECTION: 2f Create message
@@ -336,19 +268,14 @@ if ($debug) {
         $from = "Random Task Registration Confirmation <noreply@yoursite.com>";
         // subject of mail should make sense to your form
         $todaysDate = strftime("%x");
-<<<<<<< HEAD
+
         $subject = "Welcome to Random Task: " . $todaysDate;
-=======
         $subject = "Welcome to the Real World: " . $todaysDate;
 
->>>>>>> FETCH_HEAD
         mail($to, $subject, $message, $headers);
     } // end form is valid
 } // ends if form was submitted.
-<<<<<<< HEAD
-=======
 
->>>>>>> FETCH_HEAD
 //#############################################################################
 //
 // SECTION 3 Display Form
@@ -356,6 +283,7 @@ if ($debug) {
 ?>
 
 <article id="main">
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     <?php
@@ -371,37 +299,12 @@ if ($debug) {
     if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
         print "<h1> Congratulations! You should receive a confirmation email shortly. </h1>";
     } else {
-=======
 
-    <?php
-    //####################################
-    //
-    // SECTION 3a.
-    //
-    // 
-    // 
-    // 
-    // If its the first time coming to the form or there are errors we are going
-    // to display the form.
-    if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
-        print "<h1> Congratulations! You should receive a confirmation email shortly. </h1>";
-
-     
-
-        
-    } else {
-
-
->>>>>>> FETCH_HEAD
         //####################################
         //
         // SECTION 3b Error Messages
         //
         // display any error messages before we print out the form
-<<<<<<< HEAD
-=======
-
->>>>>>> FETCH_HEAD
         if ($errorMsg) {
             print '<div id="errors">';
             print "<ol>\n";
@@ -411,11 +314,6 @@ if ($debug) {
             print "</ol>\n";
             print '</div>';
         }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> FETCH_HEAD
         //####################################
         //
         // SECTION 3c html Form
@@ -423,7 +321,6 @@ if ($debug) {
         /* Display the HTML form. note that the action is to this same page. $phpSelf
           is defined in top.php
           NOTE the line:
-<<<<<<< HEAD
           value="<?php print $email; ?>
           this makes the form sticky by displaying either the initial default value (line 35)
           or the value they typed in (line 84)
@@ -431,7 +328,6 @@ if ($debug) {
           <?php if($emailERROR) print 'class="mistake"'; ?>
           this prints out a css class so that we can highlight the background etc. to
           make it stand out that a mistake happened here.
-=======
 
           value="<?php print $email; ?>
 
@@ -445,14 +341,14 @@ if ($debug) {
           this prints out a css class so that we can highlight the background etc. to
           make it stand out that a mistake happened here.
 
->>>>>>> FETCH_HEAD
+
          */
         ?>
 
         <form action="<?php print $phpSelf; ?>"
               method="post"
               id="frmRegister">
-<<<<<<< HEAD
+
             <fieldset class="register">
                 <legend>Sign Up!</legend>
 
@@ -560,63 +456,17 @@ if ($debug) {
             </fieldset>
             <input type="submit" id="btnSubmit" name="btnSubmit" value="Sign Up" tabindex="900" class="button">
 
-            </fieldset>
-=======
->>>>>>> FETCH_HEAD
-
-            <fieldset class="wrapper">
-                <legend>Register Today!</legend>
-               
-
-                <fieldset class="wrapperTwo">
-                    <legend>Please complete the following form</legend>
-
-                    <fieldset class="contact">
-                        <legend>Contact Information</legend>
-                        <label for="txtUser" class="required">User Name
-                            <input type="text" id="txtUser" name="txtUser"
-                                   value="<?php print $user; ?>"
-                                   tabindex="100" maxlength="45" placeholder="Please select a username"
-                                   <?php if ($userERROR) print 'class="mistake"'; ?>
-                                   onfocus="this.select()"
-                                   autofocus>
-                        </label>
-                        
-                        <label for="txtEmail" class="required">Email
-                            <input type="text" id="txtEmail" name="txtEmail"
-                                   value="<?php print $email; ?>"
-                                   tabindex="120" maxlength="45" placeholder="Enter a valid email address"
-                                   <?php if ($emailERROR) print 'class="mistake"'; ?>
-                                   onfocus="this.select()" 
-                                   >
-                        </label>
-                    </fieldset> <!-- ends contact -->
-                    
-                </fieldset> <!-- ends wrapper Two -->
-                
-                <fieldset class="buttons">
-                    <legend></legend>
-                    <input type="submit" id="btnSubmit" name="btnSubmit" value="Register" tabindex="900" class="button">
-                </fieldset> <!-- ends buttons -->
-                
-            </fieldset> <!-- Ends Wrapper -->
+            
         </form>
 
-<<<<<<< HEAD
+
         <?php
     } // end body submit
     ?>
 
 </article>
 
-=======
-    <?php
-    } // end body submit
-    ?>
 
-</article>
-
->>>>>>> FETCH_HEAD
 <?php include "footer.php"; ?>
 
 </body>
