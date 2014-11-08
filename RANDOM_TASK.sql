@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS tblUsers (
     PRIMARY KEY (pmkEmail)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+
 CREATE TABLE IF NOT EXISTS tblDemographics (
     fnkEmail varchar(320) NOT NULL,
     fldParent boolean not null default 0,
