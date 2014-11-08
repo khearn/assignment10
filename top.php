@@ -4,9 +4,8 @@
     <head>
         <title>Random Task</title>
         <meta charset="utf-8">
-        <meta name="author" content="Mallory">
-        <meta name="description" content="Homework">
-
+        <meta name="author" content="Mallory Joy & Kylie Hearn">
+        <meta name="description" content="Random Task is a website that reminds you of things you have to do. The idea is that you will submit a task and on the day you have to do it, we will send you either an email or a text message reminding you to do said task.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!--[if lt IE 9]>
