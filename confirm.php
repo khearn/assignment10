@@ -28,9 +28,9 @@ print '<p>Thank you for confirming your account.  An administrator will look ove
 // variables for the classroom purposes to help find errors.
 
 require_once('../bin/myDatabase.php');
-$dbUserName = get_current_user() . '_writer';
+$dbUserName = 'khearn_writer';
 $whichPass = "w"; //flag for which one to use.
-$dbName = strtoupper(get_current_user()) . '_RANDOM_TASK';
+$dbName = 'KHEARN_RANDOM_TASK';
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 
 $debug = false;
@@ -53,14 +53,14 @@ $message = "<p>I am sorry but this project cannot be confrimed at this time. Ple
 
 if (isset($_GET["q"])) {
     $key1 = htmlentities($_GET["q"], ENT_QUOTES, "UTF-8");
-    $key2 = htmlentities($_GET["w"], ENT_QUOTES, "UTF-8");
+//    $key2 = htmlentities($_GET["w"], ENT_QUOTES, "UTF-8");
 
-    $data = array($key2);
+    $data = array($key1);
     //##############################################################
     // get the membership record 
 
     $query = "SELECT fldDate FROM tblUsers WHERE pmkEmail = ? ";
-    $results = $thisDatabase->select($query, $data);
+    $records = $thisDatabase->select($query, $data);
 
     $date = $results[0]["fldDate"];
     $email = $results[0]["pmkEmail"];
@@ -87,12 +87,12 @@ if (isset($_GET["q"])) {
         $query = "UPDATE tblUsers SET fldHash=1 WHERE pmkEmail = ? ";
         $data = array($confirm);
         $data[] = $approved;
-        $results = $thisDatabase->update($query, $data);
-        if ($results) {
+        $records = $thisDatabase->update($query, $data);
+        if ($records) {
                 echo "Successful";
                 echo "<BR>";
                 echo "<a href='home.php'>Back to main Page</a>";
-            } elseif (!$results)  {
+            } elseif (!$records)  {
                 echo "ERROR. There was a problem with accpeting your data please contact us directly.";
             }
 
@@ -100,7 +100,7 @@ if (isset($_GET["q"])) {
         if ($debug) {
             print "<p>Query: " . $query;
             print "<p><pre>";
-            print_r($results);
+            print_r($records);
             print_r($data);
             print "</pre></p>";
         }
@@ -118,8 +118,8 @@ if (isset($_GET["q"])) {
         $to = $email;
         $cc = "";
         $bcc = "$adminEmail";
-        $from = "SomeStuff <noreply@yoursite.com>";
-        $subject = "SomeStuff Confirmed: Approve?";
+        $from = "Random Task <noreply@yoursite.com>";
+        $subject = "Random Task Confirmed: Approve?";
         $messageE = "<p>Your membership has been approved. Welcome Aboard!</p>";
 
         $mailed = sendMail($to, $cc, $bcc, $from, $subject, $message);
@@ -132,12 +132,12 @@ if (isset($_GET["q"])) {
             print "mailed to admin ". $to . ".</p>";
         }
 
-       /* // notify user
+        //notify user
         $to = $email;
         $cc = "";
         $bcc = "";
-        $from = "SomeStuff <noreply@yoursite.com>";
-        $subject = "SomeStuff Registration Confirmed";
+        $from = "Random Task <noreply@yoursite.com>";
+        $subject = "Random Task Registration Confirmed";
         $message = "<p>Thank you for taking the time to confirm your registration. Once your membership has been approved we look forward to sending you junk mail.</p>";
 
         $mailed = sendMail($to, $cc, $bcc, $from, $subject, $message);
@@ -149,7 +149,7 @@ if (isset($_GET["q"])) {
                 print "NOT ";
             }
             print "mailed to member: " . $to . ".</p>";
-        }*/
+        }
     }else{
         print $message;
     }

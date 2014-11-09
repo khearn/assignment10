@@ -4,22 +4,24 @@ CREATE TABLE IF NOT EXISTS tblUsers (
     fldFirstName varchar(100) NOT NULL,
     fldLastName varchar(100) NOT NULL,
     fldDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    fldGender char(1) DEFAULT 'F',
+/*    fldGender char(1) DEFAULT 'F', ---  dont use this row for now! */
     fldHash tinyint(1) NOT NULL DEFAULT '0',
     PRIMARY KEY (pmkEmail)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
+/* or this table
 CREATE TABLE IF NOT EXISTS tblDemographics (
     fnkEmail varchar(320) NOT NULL,
-    fldParent boolean not null default 0,
-    fldStudent boolean not null default 0,
-    fldEmployed boolean not null default 0,
-    fldPetOwner boolean not null default 0,
-    fldMarried boolean not null default 0,
-    fldTraveler boolean not null default 0
-    
+    fldParent boolean not null default F,
+    fldStudent boolean not null default F,
+    fldEmployed boolean not null default F,
+    fldPetOwner boolean not null default F,
+    fldMarried boolean not null default F,
+    fldTraveler boolean not null default F,
+    PRIMARY KEY (fnkEmail)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+*/
 
 CREATE TABLE IF NOT EXISTS tblTasks (
     fnkEmail varchar(320) NOT NULL,

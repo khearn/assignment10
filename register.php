@@ -71,12 +71,8 @@ if (isset($_POST["btnSubmit"])) {
 
     $confirm = sha1($email);
     //$approved = sha1($confirm);
-
-    
-
     // add gender later
-    $query = "INSERT INTO tblUsers(pmkEmail, fldPassword, fldLastName, fldFirstName, fldDate, fldHash) ";
-    $query = "VALUES ('" . $email . "', '" . $password . "' , '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
+    $query = "INSERT INTO tblUsers(pmkEmail, fldPassword, fldLastName, fldFirstName, fldDate, fldHash) VALUES ('" . $email . "', '" . $password . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
 
     if ($debug) {
         print $query;
@@ -89,9 +85,11 @@ if (isset($_POST["btnSubmit"])) {
     $data[] = $lname;
     $data[] = $date;
     $data[] = $confirm;
-    
+
+
+
     $records = $thisDatabase->insert($query, $data);
-    
+
     if ($debug) {
         print "<div>" . count($records) . " records created.</div>";
         print_r($data);
@@ -119,7 +117,7 @@ if (isset($_POST["btnSubmit"])) {
 
     $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $password;
-	
+
 
     $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $fname;
@@ -136,7 +134,7 @@ if (isset($_POST["btnSubmit"])) {
     // order that the elements appear on your form so that the error messages
     // will be in the order they appear. errorMsg will be displayed on the form
     // see section 3b. The error flag ($emailERROR) will be used in section 3c.
-    
+
     if ($email == "") {
         $errorMsg[] = "Please enter your email address";
         $emailERROR = true;
@@ -168,18 +166,22 @@ if (isset($_POST["btnSubmit"])) {
         $errorMsg[] = "Your last name appears to have extra character.";
         $lnameERROR = true;
     }
-    
+
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     //
     // SECTION: 2d Process Form - Passed Validation
     //
     // Process for when the form passes validation (the errorMsg array is empty)
     //
-    if (!$errorMsg) {
+    
+      
+        if (!$errorMsg) {
         if ($debug)
             print "<p>Form is valid</p>";
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //
+        //
+        
         // SECTION: 2e Save Data
         //
         // This block saves the data to a CSV file.
@@ -221,9 +223,9 @@ if (isset($_POST["btnSubmit"])) {
 <?php
 //####################################
 //
-    // SECTION 3a.
+// SECTION 3a.
 //
-    // 
+// 
 // 
 // 
 // If its the first time coming to the form or there are errors we are going
