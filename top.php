@@ -4,16 +4,16 @@
     <head>
         <title>Random Task</title>
         <meta charset="utf-8">
-        <meta name="author" content="Mallory">
-        <meta name="description" content="Homework">
-
+        <meta name="author" content="Mallory Joy & Kylie Hearn">
+        <meta name="description" content="Random Task is a website that reminds you of things you have to do. The idea is that you will submit a task and on the day you have to do it, we will send you either an email or a text message reminding you to do said task.">
+        
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!--[if lt IE 9]>
         <script src="//html5shim.googlecode.com/sin/trunk/html5.js"></script>
         <![endif]-->
 
-        <link rel="stylesheet" href="style.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="randomTask.css" type="text/css" media="screen">
 
 
         <?php
@@ -46,8 +46,8 @@
 //
         require_once('lib/security.php');
         //if ($path_parts['filename'] == "form" || $path_parts['filename'] == "crud") {
-            require "lib/validation_functions.php";
-            require "lib/mailMessage.php";
+            require "lib/validation-functions.php";
+            require "lib/mail-message.php";
         //}
         ?>	
 
