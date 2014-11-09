@@ -13,9 +13,8 @@
         <script src="//html5shim.googlecode.com/sin/trunk/html5.js"></script>
         <![endif]-->
 
-        
-        <link rel="stylesheet" href="randomTask.css" type="text/css" media="screen">
         <link rel="stylesheet" href="style.css" type="text/css" media="screen">
+
 
         <?php
         $debug = false;
@@ -31,13 +30,9 @@
             }
         }
         $server = htmlentities($_SERVER['SERVER_NAME'], ENT_QUOTES, "UTF-8");
-
         $domain .= $server;
-
         $phpSelf = htmlentities($_SERVER['PHP_SELF'], ENT_QUOTES, "UTF-8");
-
         $path_parts = pathinfo($phpSelf);
-
         if ($debug) {
             print "<p>Domain" . $domain;
             print "<p>php Self" . $phpSelf;
@@ -45,15 +40,14 @@
             print_r($path_parts);
             print "</pre>";
         }
-
 // %^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // inlcude all libraries
 //
         require_once('lib/security.php');
         //if ($path_parts['filename'] == "form" || $path_parts['filename'] == "crud") {
-            require "lib/validation-functions.php";
-            require "lib/mail-message.php";
+            require "lib/validation_functions.php";
+            require "lib/mailMessage.php";
         //}
         ?>	
 
@@ -62,4 +56,7 @@
 
     <?php
     print '<body id="' . $path_parts['filename'] . '">';
+    
+    include "header.php";
+    include "nav.php";
     ?>
