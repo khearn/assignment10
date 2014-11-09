@@ -7,8 +7,8 @@ $dbName = 'KHEARN_RANDOM_TASK';
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 
 // Connect to server and select databse.
-mysql_connect("$host", "$email", "$password")or die("cannot connect");
-mysql_select_db("$db_name")or die("cannot select DB");
+//mysql_connect($thisDatabase, $email, $password)or die("cannot connect");
+//mysql_select_db($dbName)or die("cannot select DB");
 
 // username and password sent from form 
 $email = $_GET['pmkEmail'];
@@ -20,19 +20,19 @@ $password = stripslashes($password);
 $email = mysql_real_escape_string($email);
 $password = mysql_real_escape_string($password);
 
-$sql = "SELECT * FROM tblUsers WHERE username='$email' and password='$password'";
-$result = mysql_query($sql);
+$sql = "SELECT pmkEmail, fldPassword FROM tblUsers WHERE username='$email' and password='$password'";
+$records = array($sql);
 
 // Mysql_num_row is counting table row
-$count = mysql_num_rows($result);
+$count = mysql_num_rows($records);
 
 // If result matched $myusername and $mypassword, table row must be 1 row
 if ($count == 1) {
 
-// Register $myusername, $mypassword and redirect to file "login_success.php"
-    session_register("txtEmail");
-    session_register("pwdPassword");
-    header("location:login_success.php");
+// Register $myusername, $mypassword and redirect to file "profile.php"
+    session_register($email);
+    session_register($password);
+    header("location:profile.php");
 } else {
     echo "Wrong Username or Password";
 }

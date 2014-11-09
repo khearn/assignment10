@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS tblUsers (
 /*    fldGender char(1) DEFAULT 'F', ---  dont use this row for now! */
     fldHash tinyint(1) NOT NULL DEFAULT '0',
     PRIMARY KEY (pmkEmail)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
 /* or this table
 CREATE TABLE IF NOT EXISTS tblDemographics (
