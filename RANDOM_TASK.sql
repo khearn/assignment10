@@ -29,7 +29,21 @@ CREATE TABLE IF NOT EXISTS tblTasks (
     fldTask varchar(500) NOT NULL,
     fldDescription TEXT(65535) NULL,
     fldToDoDate DATE NOT NULL,
-    PRIMARY KEY (pmkTaskId)
+    PRIMARY KEY (fnkEmail, pmkTaskId)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS tblRelationship (
+    fnkEmail varchar(320) NOT NULL,
+    fnkCategoryId int(11) NOT NULL,
+    fnkTaskId int(11) NOT NULL,
+    PRIMARY KEY (fnkEmail, fnkCategoryId, fnkTaskId)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS tblCategories (
+    pmkCategoryId int(11) NOT NULL AUTO_INCREMENT,
+    fldCategory varchar(500) NOT NULL,
+    PRIMARY KEY (pmkCategoryId)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS tblRandomTask (

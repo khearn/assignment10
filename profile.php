@@ -1,6 +1,6 @@
 <?php
     include "top.php";
-    include ('login.php');
+    //include ('login.php');
     include "header.php";
     include "nav.php";
 ?>
@@ -8,10 +8,10 @@
 <?php
 // Check if session is not registered, redirect back to main page. 
 // Put this code in first line of web page. 
-session_start();
-if(!session_is_registered($email)){
-header("location:profile.php");
-}
+//session_start();
+//if(!session_is_registered($email)){
+//header("location:profile.php");
+//}
 ?>
 
 <article>
