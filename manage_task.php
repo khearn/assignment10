@@ -37,6 +37,11 @@ $dbUserName = 'khearn_writer';
 $whichPass = "w"; //flag for which one to use.
 $dbName = 'KHEARN_RANDOM_TASK';
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
+
+
+$task = "";
+$details = "";
+
 ?>
 
 <article>
@@ -50,18 +55,18 @@ $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
                 <select id="lstCategory"
                         name="lstCategory"
                         tabindex="100" >
-                    <?php 
-                    //creating list query
+                            <?php
+                            //creating list query
                             $query = "SELECT DISTINCT fldCategory ";
                             $query .= "FROM tblCategories ";
                             $query .= "ORDER BY fldCategory";
-                            
+
                             $list2 = $thisDatabase->select($query, $data);
-                            
+
                             foreach ($list2 as $row) {
                                 print "<option value = '" . $row["fldCategory"] . "'>" . $row["fldCategory"] . "</option>\n";
                             }
-                    ?>
+                            ?>
 
                     <!--
                     <option value="HW">Home Work</option>
@@ -75,14 +80,14 @@ $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
                 </select>
 
             </label>
-            
+
             <label for="txtTask">Task
                 <input type="text" id="txtTask" name="txtTask"
                        value="<?php print $task ?>"
                        tabindex="100" maxlength="45" placeholder="here you should write the task you have to do"
                        <?php if ($taskERROR) print 'class="mistake"'; ?>
                        onfocus="this.select()"
-                    >
+                       >
             </label>
 
             <label for="txtBox">Details/Description (optional)
