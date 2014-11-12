@@ -300,7 +300,7 @@ if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked w
                            >
                 </label>
 
-                <label for="txtPassword">Password
+                <label for="pwdPassword">Password
                     <input type="password" id="pwdPassword" name="pwdPassword"
                            value="<?php print $password ?>"
                            tabindex="400" maxlength="45" placeholder="Please enter a valid Email Address"

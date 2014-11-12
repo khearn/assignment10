@@ -1,4 +1,5 @@
-<?php ini_set('display_errors',1); error_reporting(E_ALL); ?>
+<?php ini_set('display_errors', 1);
+error_reporting(E_ALL); ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,7 +7,7 @@
         <meta charset="utf-8">
         <meta name="author" content="Mallory Joy & Kylie Hearn">
         <meta name="description" content="Random Task is a website that reminds you of things you have to do. The idea is that you will submit a task and on the day you have to do it, we will send you either an email or a text message reminding you to do said task.">
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!--[if lt IE 9]>
@@ -14,6 +15,15 @@
         <![endif]-->
 
         <link rel="stylesheet" href="randomTask.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+            <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+            <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+            <link rel="stylesheet" href="/resources/demos/style.css">
+            <script>
+                      $(function () {
+                          $("#datepicker").datepicker();
+                      });
+            </script>
 
 
         <?php
@@ -46,8 +56,8 @@
 //
         require_once('lib/security.php');
         //if ($path_parts['filename'] == "form" || $path_parts['filename'] == "crud") {
-            require "lib/validation-functions.php";
-            require "lib/mail-message.php";
+        require "lib/validation-functions.php";
+        require "lib/mail-message.php";
         //}
         ?>	
 
