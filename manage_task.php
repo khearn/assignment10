@@ -4,7 +4,7 @@ include "top.php";
 include "header.php";
 include "nav.php";
 ?>
-
+<!-- Need to add email/account info once that is working -->
 <?php
 /*
   CREATE TABLE IF NOT EXISTS tblTasks (
