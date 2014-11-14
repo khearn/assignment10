@@ -38,7 +38,7 @@ $username = "";
 $password = "";
 $fname = "";
 $lname = "";
-$date = date("Y-m-d H:i:s");
+$date = "";
 $hash = "";
 
 $confirm = "";
