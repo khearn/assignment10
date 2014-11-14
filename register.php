@@ -96,8 +96,8 @@ if (isset($_POST["btnSubmit"])) {
      */
     // check if user or email address already exists
     
-    $sql_user = "SELECT pmkUsername FROM tblUsers WHERE pmkUsername = '" . $username . "' ";
-    $sql_email = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
+    $query = "SELECT pmkUsername FROM tblUsers WHERE pmkUsername = '" . $username . "' ";
+    $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
     if ($sql_user) {
         print "Sorry, that username is already taken.";
     } if ($sql_email) {
