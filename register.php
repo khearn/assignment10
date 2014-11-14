@@ -95,14 +95,16 @@ if (isset($_POST["btnSubmit"])) {
      * @param string $password
      */
     // check if user or email address already exists
-    
-  //  $query = "SELECT pmkUsername FROM tblUsers WHERE pmkUsername = '" . $username . "' ";
-    //$query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
-    //if ($query) {
-      //  print "Sorry, that username is already taken.";
-    //} if ($query) {
-      //  print "Sorry, an Account has already been made for this email address.";
-    //} else {
+/*    
+  $query = "SELECT pmkUsername FROM tblUsers WHERE pmkUsername = '" . $username . "' ";
+$query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
+    if ($query) {
+        print "Sorry, that username is already taken.";
+    } if ($query) {
+        print "Sorry, an Account has already been made for this email address.";
+    }
+     else {
+  */
     
         $dataEntered = false;
         try {
@@ -201,12 +203,12 @@ if (isset($_POST["btnSubmit"])) {
         } elseif (!verifyEmail($email)) {
             $errorMsg[] = "Your email address appears to be incorrect.";
             $emailERROR = true;
-        } elseif ($sql_email) { 
+        } /*elseif ($sql_email) { 
             $errorMsg[] = "Sorry, an Account has already been made for this email address.";
             $emailERROR = true;
         } elseif (!$sql_email) { 
             $emailERROR = false;
-        }
+        }*/
 
         if ($password == "") {
             $errorMsg[] = "Please enter a password";
@@ -222,12 +224,12 @@ if (isset($_POST["btnSubmit"])) {
         } elseif (!verifyAlphaNum($username)) {
             $errorMsg[] = "Your password appears to have extra character.";
             $usernameERROR = true;
-        } elseif ($sql_user) {
+        }/* elseif ($sql_user) {
             $errorMsg[] = "Sorry, that username is already taken.";
             $usernameERROR = true;
         } elseif (!$sql_user) {
             $usernameERROR = false;
-        }
+        }*/
 
         if ($fname == "") {
             $errorMsg[] = "Please enter your first name";
