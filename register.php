@@ -106,9 +106,9 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
      else {
   */
     
-   /*     $dataEntered = false;
-        try {
-         //   $thisDatabase->db->beginTransaction(); */
+    /*  $dataEntered = false;
+        try { */
+           $thisDatabase->db->prepare($query);  /*THIS IS THE LINE YOU NEED TO FIX */
 
 
             $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldLastName, fldFirstName, fldDate, fldHash) "
