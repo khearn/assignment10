@@ -106,9 +106,9 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
      else {
   */
     
-        $dataEntered = false;
+   /*     $dataEntered = false;
         try {
-            $thisDatabase->db->beginTransaction();
+         //   $thisDatabase->db->beginTransaction(); */
 
 
             $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldLastName, fldFirstName, fldDate, fldHash) "
@@ -134,7 +134,7 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
             }
             $firstTime = true;
 
-
+/*
             // all sql statements are done so lets commit to our changes
             $dataEntered = $thisDatabase->db->commit();
             $dataEntered = true;
@@ -150,10 +150,9 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
         if ($dataEntered) {
             if ($debug)
                 print "<p>Success</p> ";
-        }
+        } */
         /* since it is associative array display the field names */
-
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
         //
  // SECTION: 2a Security
         // 
@@ -291,7 +290,7 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
         $subject = "Welcome to the Random Task: " . $todaysDate;
 
         mail($to, $subject, $message, $headers);
-        } // end form is valid
+       // } // end form is valid
     } //something else...?
 }// ends if form was submitted.
 //#############################################################################
