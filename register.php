@@ -310,10 +310,6 @@ if (isset($_POST["btnSubmit"])) {
 // 
 // If its the first time coming to the form or there are errors we are going
 // to display the form.
- if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
-        print "<h1> Congratulations! You should receive a confirmation email shortly. </h1>";
-
-
 if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
     print "<h1> Congratulations! You should receive a confirmation email shortly. </h1>";
 } else {
