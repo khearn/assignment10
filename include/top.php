@@ -55,7 +55,7 @@ error_reporting(E_ALL); ?>
 // inlcude all libraries
 //
         require_once('lib/security.php');
-        //if ($path_parts['filename'] == "form" || $path_parts['filename'] == "crud") {
+        //if (($path_parts['filename'] == "register") OR ($path_parts['filename'] == "manage_task") OR ($path_parts['filename'] == "login/login")) {
         require "lib/validation-functions.php";
         require "lib/mail-message.php";
         //}

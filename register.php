@@ -1,7 +1,7 @@
 <?php
-    include "top.php";
-    include "header.php";
-    include "nav.php";
+include "include/top.php";
+include "include/header.php";
+include "include/nav.php";
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1 Initialize variables
@@ -33,10 +33,13 @@ $yourURL = $domain . $phpSelf;
 // Initialize variables one for each form element
 // in the order they appear on the form
 $email = "";
+$username = "";
+//$password = "";
 $password = "";
 $fname = "";
 $lname = "";
 $date = date("Y-m-d H:i:s");
+$hash = "";
 
 $confirm = "";
 $headers = "";
@@ -47,6 +50,7 @@ $headers = "";
 // Initialize Error Flags one for each form element we validate
 // in the order they appear in section 1c.
 $emailERROR = false;
+$usernameERROR = false;
 $passwordERROR = false;
 $fnameERROR = false;
 $lnameERROR = false;
@@ -65,155 +69,199 @@ $mailed = false; // have we mailed the information to the user?
 // SECTION: 2 Process for when the form is submitted
 //
 //
-if (isset($_POST["btnSubmit"])) {
+if (isset($_POST["btnSubmit"]) && strlen($_POST['username']) <= 64 && strlen($_POST['username']) >= 2 && preg_match('/^[a-z\d]{2,64}$/i', $_POST['username']) && !empty($_POST['email']) && strlen($_POST['email']) <= 264 && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
     $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
+    $username = filter_var($_POST["txtUsername"], ENT_QUOTES, "UTF-8");
     $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
     $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
     $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
 
     $confirm = sha1($email);
+    $hash = sha1($password);
+
     //$approved = sha1($confirm);
     // add gender later
-    $query = "INSERT INTO tblUsers(pmkEmail, fldPassword, fldLastName, fldFirstName, fldDate, fldHash) VALUES ('" . $email . "', '" . $password . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
-
-    if ($debug) {
-        print $query;
-    }
-
-
-    $data = array($email);
-    $data[] = $password;
-    $data[] = $fname;
-    $data[] = $lname;
-    $data[] = $date;
-    $data[] = $confirm;
-
-
-
-    $records = $thisDatabase->insert($query, $data);
-
-    if ($debug) {
-        print "<div>" . count($records) . " records created.</div>";
-        print_r($data);
-    }
-    $firstTime = true;
-    /* since it is associative array display the field names */
-
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    //
-    // SECTION: 2a Security
     // 
-    if (!securityCheck(true)) {
-        $msg = "<p>Sorry you cannot access this page. ";
-        $msg.= "Security breach detected and reported</p>";
-        die($msg);
-    }
 
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    //
+    
+
+    /**
+     * Generates password hash from password and sets it to the model
+     *
+     * @param string $password
+     */
+    // check if user or email address already exists
+    $sql_user = "SELECT pmkUsername FROM tblUsers WHERE pmkUsername = '" . $username . "' ";
+    $sql_email = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
+    if ($sql_user) {
+        print "Sorry, that username is already taken.";
+    } if ($sql_email) {
+        print "Sorry, an Account has already been made for this email address.";
+    } else {
+
+        $dataEntered = false;
+        try {
+            $thisDatabase->db->beginTransaction();
+
+
+            $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldLastName, fldFirstName, fldDate, fldHash) "
+                    . "VALUES ('" . $email . "', '" . $username . "', '" . $hash . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
+
+            if ($debug) {
+                print $query;
+            }
+
+            $data = array($email);
+            $data[] = $username;
+            $data[] = $hash;
+            $data[] = $fname;
+            $data[] = $lname;
+            $data[] = $date;
+            $data[] = $confirm;
+
+            $records = $thisDatabase->insert($query, $data);
+
+            if ($debug) {
+                print "<div>" . count($records) . " records created.</div>";
+                print_r($data);
+            }
+            $firstTime = true;
+
+
+            // all sql statements are done so lets commit to our changes
+            $dataEntered = $thisDatabase->db->commit();
+            $dataEntered = true;
+            if ($debug)
+                print "<p>transaction complete ";
+        } catch (PDOException $e) {
+            $thisDatabase->db->rollback();
+            if ($debug)
+                print "Error!: " . $e->getMessage() . "</br>";
+            $errorMsg[] = "There was a problem with accpeting your data please contact us directly.";
+        }
+        // If the transaction was successful, give success message
+        if ($dataEntered) {
+            if ($debug)
+                print "<p>Success</p> ";
+        }
+        /* since it is associative array display the field names */
+
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //
+    // SECTION: 2a Security
+        // 
+        if (!securityCheck(true)) {
+            $msg = "<p>Sorry you cannot access this page. ";
+            $msg.= "Security breach detected and reported</p>";
+            die($msg);
+        }
+
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //
     // SECTION: 2b Sanitize (clean) data 
-    // remove any potential JavaScript or html code from users input on the
-    // form. Note it is best to follow the same order as declared in section 1c.
-    $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
-    $dataRecord[] = $email;
+        // remove any potential JavaScript or html code from users input on the
+        // form. Note it is best to follow the same order as declared in section 1c.
+        $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
+        $dataRecord[] = $email;
 
-    $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
-    $dataRecord[] = $password;
+        $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
+        $dataRecord[] = $password;
 
 
-    $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
-    $dataRecord[] = $fname;
+        $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
+        $dataRecord[] = $fname;
 
-    $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
-    $dataRecord[] = $lname;
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    //
+        $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
+        $dataRecord[] = $lname;
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //
     // SECTION: 2c Validation
-    //
+        //
     // Validation section. Check each value for possible errors, empty or
-    // not what we expect. You will need an IF block for each element you will
-    // check (see above section 1c and 1d). The if blocks should also be in the
-    // order that the elements appear on your form so that the error messages
-    // will be in the order they appear. errorMsg will be displayed on the form
-    // see section 3b. The error flag ($emailERROR) will be used in section 3c.
+        // not what we expect. You will need an IF block for each element you will
+        // check (see above section 1c and 1d). The if blocks should also be in the
+        // order that the elements appear on your form so that the error messages
+        // will be in the order they appear. errorMsg will be displayed on the form
+        // see section 3b. The error flag ($emailERROR) will be used in section 3c.
 
-    if ($email == "") {
-        $errorMsg[] = "Please enter your email address";
-        $emailERROR = true;
-    } elseif (!verifyEmail($email)) {
-        $errorMsg[] = "Your email address appears to be incorrect.";
-        $emailERROR = true;
-    }
+        if ($email == "") {
+            $errorMsg[] = "Please enter your email address";
+            $emailERROR = true;
+        } elseif (!verifyEmail($email)) {
+            $errorMsg[] = "Your email address appears to be incorrect.";
+            $emailERROR = true;
+        }
 
-    if ($password == "") {
-        $errorMsg[] = "Please enter a password";
-        $passwordERROR = true;
-    } elseif (!verifyAlphaNum($password)) {
-        $errorMsg[] = "Your password appears to have extra character.";
-        $passwordERROR = true;
-    }
+        if ($password == "") {
+            $errorMsg[] = "Please enter a password";
+            $passwordERROR = true;
+        } elseif (!verifyAlphaNum($password)) {
+            $errorMsg[] = "Your password appears to have extra character.";
+            $passwordERROR = true;
+        }
 
-    if ($fname == "") {
-        $errorMsg[] = "Please enter your first name";
-        $fnameERROR = true;
-    } elseif (!verifyAlphaNum($fname)) {
-        $errorMsg[] = "Your first name appears to have extra character.";
-        $fnameERROR = true;
-    }
+        if ($fname == "") {
+            $errorMsg[] = "Please enter your first name";
+            $fnameERROR = true;
+        } elseif (!verifyAlphaNum($fname)) {
+            $errorMsg[] = "Your first name appears to have extra character.";
+            $fnameERROR = true;
+        }
 
-    if ($lname == "") {
-        $errorMsg[] = "Please enter your last name";
-        $lnameERROR = true;
-    } elseif (!verifyAlphaNum($lname)) {
-        $errorMsg[] = "Your last name appears to have extra character.";
-        $lnameERROR = true;
-    }
+        if ($lname == "") {
+            $errorMsg[] = "Please enter your last name";
+            $lnameERROR = true;
+        } elseif (!verifyAlphaNum($lname)) {
+            $errorMsg[] = "Your last name appears to have extra character.";
+            $lnameERROR = true;
+        }
 
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    //
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //
     // SECTION: 2d Process Form - Passed Validation
-    //
+        //
     // Process for when the form passes validation (the errorMsg array is empty)
-    //
+        //
     
       
         if (!$errorMsg) {
-        if ($debug)
-            print "<p>Form is valid</p>";
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //
+            if ($debug)
+                print "<p>Form is valid</p>";
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            //
         //
         
         // SECTION: 2e Save Data
-        //
+            //
         // This block saves the data to a CSV file.
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            //
         // SECTION: 2f Create message
-        //
+            //
         // build a message to display on the screen in section 3a and to mail
-        // to the person filling out the form (section 2g).
-        //?q means there will be a variable afterwards. 
-        $message = 'Welcome! Please click this link to confirm.';
-        $message .= " https://khearn.w3.uvm.edu/cs148/assignment10/confirm.php?q=";
-        $message .= $confirm;
+            // to the person filling out the form (section 2g).
+            //?q means there will be a variable afterwards. 
+            $message = 'Welcome! Please click this link to confirm.';
+            $message .= " https://khearn.w3.uvm.edu/cs148/assignment10/confirm.php?q=";
+            $message .= $confirm;
 
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            //
         // SECTION: 2g Mail to user
-        //
+            //
         // Process for mailing a message which contains the forms data
-        // the message was built in section 2f.
-        $to = $email; // the person who filled out the form
-        $cc = "";
-        $bcc = "";
-        $from = "Random Task Registration Confirmation Email <noreply@yoursite.com>";
-        // subject of mail should make sense to your form
-        $todaysDate = strftime("%x");
-        $subject = "Welcome to Random Task: " . $todaysDate;
-        mail($to, $subject, $message, $headers);
-    } // end form is valid
-} // ends if form was submitted.
+            // the message was built in section 2f.
+            $to = $email; // the person who filled out the form
+            $cc = "";
+            $bcc = "";
+            $from = "Random Task Registration Confirmation Email <noreply@yoursite.com>";
+            // subject of mail should make sense to your form
+            $todaysDate = strftime("%x");
+            $subject = "Welcome to Random Task: " . $todaysDate;
+            mail($to, $subject, $message, $headers);
+        } // end form is valid
+    } //something else...?
+}// ends if form was submitted.
 //#############################################################################
 //
 // SECTION 3 Display Form
@@ -300,6 +348,15 @@ if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked w
                            >
                 </label>
 
+                <label for="txtUsername">Username
+                    <input type="text" id="txtEmail" name="txtUsername"
+                           value="<?php print $username; ?>"
+                           tabindex="350" maxlength="45" placeholder="Please enter a Username"
+    <?php if ($usernameERROR) print 'class="mistake"'; ?>
+                           onfocus="this.select()"
+                           >
+                </label>
+
                 <label for="pwdPassword">Password
                     <input type="password" id="pwdPassword" name="pwdPassword"
                            value="<?php print $password ?>"
@@ -324,7 +381,12 @@ if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked w
 
 </article>
 
-    <?php include "footer.php"; ?>
+    <?php
+    include "include/footer.php";
+    if ($debug) {
+        print "<p>END OF PROCESSING</p>";
+    }
+    ?>
 
 </body>
 </html>

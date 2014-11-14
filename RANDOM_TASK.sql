@@ -1,13 +1,16 @@
 CREATE TABLE IF NOT EXISTS tblUsers (
-    pmkEmail varchar(320) NOT NULL,
+    pmkEmail varchar(320) NOT NULL COMMENT 'user''s email, unique',
+    pmkUsername varchar(64) NOT NULL COMMENT 'user''s name, unique',
     fldPassword varchar(100) NOT NULL,
     fldFirstName varchar(100) NOT NULL,
     fldLastName varchar(100) NOT NULL,
     fldDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 /*    fldGender char(1) DEFAULT 'F', ---  dont use this row for now! */
     fldHash tinyint(1) NOT NULL DEFAULT '0',
-    PRIMARY KEY (pmkEmail)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
+    PRIMARY KEY (pmkUsername),
+    UNIQUE KEY (pmkEmail),
+    UNIQUE KEY (pmkUsername)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /* or this table
 CREATE TABLE IF NOT EXISTS tblDemographics (

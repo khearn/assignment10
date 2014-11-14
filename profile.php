@@ -1,22 +1,14 @@
 <?php
-    include "top.php";
+    include "include/top.php";
+    //session_start();
+    //include "session_start.php";
     //include ('login.php');
-    include "header.php";
-    include "nav.php";
-?>
-
-<?php
-// Check if session is not registered, redirect back to main page. 
-// Put this code in first line of web page. 
-//session_start();
-//if(!session_is_registered($email)){
-//header("location:profile.php");
-//}
+    include "include/header.php";
+    include "include/nav.php";
 ?>
 
 <article>
     <h2>Profile</h2>
-
     <!-- Testing out a calendar -->
     <!-- http://php.about.com/od/finishedphp1/ss/php_calendar_5.htm#step-heading -->
     <?php
@@ -159,7 +151,7 @@
             var db = html5rocks.webdb.db;
             db.transaction(function (tx) {
                 tx.executeSql("CREATE TABLE IF NOT EXISTS " +
-                        "todo(ID INTEGER PRIMARY KEY ASC, todo TEXT, added_on DATETIME)", []);
+                        "tblTasks(ID INTEGER PRIMARY KEY ASC, todo TEXT, added_on DATETIME)", []);
             });
         };
 
@@ -168,7 +160,7 @@
             var db = html5rocks.webdb.db;
             db.transaction(function (tx) {
                 var addedOn = new Date();
-                tx.executeSql("INSERT INTO todo(todo, added_on) VALUES (?,?)",
+                tx.executeSql("INSERT INTO tblTasks(todo, added_on) VALUES (?,?)",
                         [todoText, addedOn],
                         html5rocks.webdb.onSuccess,
                         html5rocks.webdb.onError);
@@ -179,7 +171,7 @@
         html5rocks.webdb.getAllTodoItems = function (renderFunc) {
             var db = html5rocks.webdb.db;
             db.transaction(function (tx) {
-                tx.executeSql("SELECT * FROM todo", [], renderFunc,
+                tx.executeSql("SELECT * FROM tblTasks", [], renderFunc,
                         html5rocks.webdb.onError);
             });
         };
@@ -187,7 +179,7 @@
         //Rendering data from a table
         function loadTodoItems(tx, rs) {
             var rowOutput = "";
-            var todoItems = document.getElementById("todoItems");
+            var todoItems = document.getElementById("tblTasksItems");
             for (var i = 0; i < rs.rows.length; i++) {
                 rowOutput += renderTodo(rs.rows.item(i));
             }
@@ -196,7 +188,7 @@
         }
         function renderTodo(row) {
             return "<li>" + row.todo +
-                    " [<a href='javascript:void(0);' onclick=\'html5rocks.webdb.deleteTodo(" +
+                    " [<a href='javascript:void(0);' onclick=\'html5rocks.webdb.deletetblTasks(" +
                     row.ID + ");\'>Delete</a>]</li>";
         }
 
@@ -204,7 +196,7 @@
         html5rocks.webdb.deleteTodo = function (id) {
             var db = html5rocks.webdb.db;
             db.transaction(function (tx) {
-                tx.executeSql("DELETE FROM todo WHERE ID=?", [id],
+                tx.executeSql("DELETE FROM tblTasks WHERE ID=?", [id],
                         html5rocks.webdb.onSuccess,
                         html5rocks.webdb.onError);
             });
@@ -224,7 +216,7 @@
 
         <script>
             function addTodo() {
-                var todo = document.getElementById("todo");
+                var todo = document.getElementById("tblTasks");
                 html5rocks.webdb.addTodo(todo.value);
                 todo.value = "";
             }
@@ -237,7 +229,7 @@
 </article>
 
 <?php
-include ('footer.php');
+include ('include/footer.php');
 ?>
 
 

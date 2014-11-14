@@ -1,8 +1,10 @@
 <?php
-include "top.php";
+include "include/top.php";
+//session_start();
+//include "session_start.php";
 //include ('login.php');
-include "header.php";
-include "nav.php";
+include "include/header.php";
+include "include/nav.php";
 ?>
 <!-- Need to add email/account info once that is working -->
 <?php
@@ -208,7 +210,7 @@ if (isset($_POST["btnSubmit"])) {
     ?>
 
 <?php
-include ('footer.php');
+include ('include/footer.php');
 ?>
 
 </body>

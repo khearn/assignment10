@@ -12,15 +12,13 @@ $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 
 // username and password sent from form 
 $email = $_GET['pmkEmail'];
-$password = $_GET['fldPassword'];
+$hash = $_GET['fldPassword'];
 
-// To protect MySQL injection (more detail about MySQL injection)
-$email = stripslashes($email);
-$password = stripslashes($password);
-$email = mysql_real_escape_string($email);
-$password = mysql_real_escape_string($password);
 
-$sql = "SELECT pmkEmail, fldPassword FROM tblUsers WHERE username='$email' and password='$password'";
+
+
+$sql = "SELECT pmkEmail, fldPassword FROM tblUsers WHERE pmkEmail = " . $_SESSION['username'] . " "
+        . " AND fldPassword = " . $_SESSION['username'] . "";
 $records = array($sql);
 
 // Mysql_num_row is counting table row
@@ -31,8 +29,8 @@ if ($count == 1) {
 
 // Register $myusername, $mypassword and redirect to file "profile.php"
     session_register($email);
-    session_register($password);
-    header("location:profile.php");
+    session_register($hash);
+    //header("location:profile.php");
 } else {
     echo "Wrong Username or Password";
 }

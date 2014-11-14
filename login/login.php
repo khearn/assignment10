@@ -1,30 +1,34 @@
 <?php //include 'checklogin.php'; ?>
 <!--
 <header id="login">
-    <form name="form1" method="post" action="checklogin.php">
+    <h1>Login</h1> 
+    <form action="login.php" method="post"> 
         <label for="txtEmail">Email
             <input type="text" id="txtEmail" name="txtEmail"
-                   value="<?php print $email ?>"
+                   value="<?php //print $submitted_email ?>"
                    tabindex="300" maxlength="45" placeholder="Please enter a valid Email Address"
-                   <?php if ($emailERROR) print 'class="mistake"'; ?>
                    onfocus="this.select()"
                    >
         </label>
         <label for="txtPassword">Password
-                    <input type="password" id="pwdPassword" name="pwdPassword"
-                           value="<?php print $password ?>"
-                           tabindex="400" maxlength="45" placeholder="Please enter a valid Email Address"
-                           <?php if ($passwordERROR) print 'class="mistake"'; ?>
-                           onfocus="this.select()"
-                           >
-                </label>
+            <input type="password" id="pwdPassword" name="pwdPassword"
+                   value="<?php //print $check_password ?>"
+                   tabindex="400" maxlength="45" placeholder="Please enter a valid Email Address"
+                   onfocus="this.select()"
+                   >
+        </label>
         <input type="submit" id="btnSubmit" name="btnSubmit" value="Login" tabindex="900" class="button">
-    </form>
+    </form> 
+    <a href="register.php">Register</a>
 </header>
 -->
-<?php
 
+<?php
+/*
 $submitted_email = ''; 
+$check_password = '';
+$hash_check = sha1($check_password);
+
      
     // This if statement checks to determine whether the login form has been submitted 
     // If it has, then the login code is run, otherwise the form is displayed 
@@ -32,7 +36,10 @@ $submitted_email = '';
     { 
         // This query retreives the user's information from the database using 
         // their username. 
-        $query = " SELECT pmkEmail, fldPassword FROM tblUsers WHERE pmkEmail =" . $submitted_email;
+        $query = " SELECT pmkEmail, fldPassword "
+                . "FROM tblUsers "
+                . "WHERE pmkEmail =" . $submitted_email . " "
+                . "AND fldPassword =" . $hash_check . " ";
          
         // The parameter values 
         $query_params = array( 
@@ -134,3 +141,8 @@ $submitted_email = '';
         <input type="submit" id="btnSubmit" name="btnSubmit" value="Login" tabindex="900" class="button">
 </form> 
 <a href="register.php">Register</a>
+<?php
+if (session_start()) {
+    header("location:profile.php");
+    }
+?>

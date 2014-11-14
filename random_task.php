@@ -1,8 +1,8 @@
 <?php
-    include "top.php";
+    include "include/top.php";
     include ('login.php');
-    include "header.php";
-    include "nav.php";
+    include "include/header.php";
+    include "include/nav.php";
 ?>
 
 <article>
@@ -10,7 +10,7 @@
 </article>
 
 <?php
-include ('footer.php');
+include ('include/footer.php');
 ?>
 
 
