@@ -12,6 +12,7 @@
     <!-- Testing out a calendar -->
     <!-- http://php.about.com/od/finishedphp1/ss/php_calendar_5.htm#step-heading -->
     <?php
+    /*
 //This gets today's date
     $date = time();
 
@@ -90,6 +91,8 @@
     //    $day_count++;
     }
     echo "</tr></table>";
+     * 
+     */
     ?>
     <!-- Finished calender -->
 
@@ -110,6 +113,7 @@
             $.facebox({ajax: '/addeditevent.php?year=' + year + '&month=' + month + '&day=' + day + '&hour=' + hour + '&minute=' + minute});
 
         }
+        
     </script>
     <!-- end add events to calendar -->
 
