@@ -291,7 +291,7 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
         $subject = "Welcome to the Random Task: " . $todaysDate;
 
         mail($to, $subject, $message, $headers);
-        } // end form is valid
+//        } // end form is valid
     } //something else...?
 }// ends if form was submitted.
 //#############################################################################
