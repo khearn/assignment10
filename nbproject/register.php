@@ -71,7 +71,111 @@ $mailed = false; // have we mailed the information to the user?
 //
 if (isset($_POST["btnSubmit"])) {
     
+    
+        // SECTION: 2a Security
+        // 
+        if (!securityCheck(true)) {
+            $msg = "<p>Sorry you cannot access this page. ";
+            $msg.= "Security breach detected and reported</p>";
+            die($msg);
+        }
+    
+        
+        
+        
+    // SECTION: 2b Sanitize (clean) data 
+        // remove any potential JavaScript or html code from users input on the
+        // form. Note it is best to follow the same order as declared in section 1c.
+        $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
+        $dataRecord[] = $email;
+        
+        $username = filter_var($_POST["txtUsername"], ENT_QUOTES, "UTF-8");
+        $dataRecord[] = $username;
 
+        $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
+        $dataRecord[] = $password;
+
+        $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
+        $dataRecord[] = $fname;
+
+        $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
+        $dataRecord[] = $lname;
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //
+    // SECTION: 2c Validation
+        //
+    // Validation section. Check each value for possible errors, empty or
+        // not what we expect. You will need an IF block for each element you will
+        // check (see above section 1c and 1d). The if blocks should also be in the
+        // order that the elements appear on your form so that the error messages
+        // will be in the order they appear. errorMsg will be displayed on the form
+        // see section 3b. The error flag ($emailERROR) will be used in section 3c.
+
+        if ($email == "") {
+            $errorMsg[] = "Please enter your email address";
+            $emailERROR = true;
+        } elseif (!verifyEmail($email)) {
+            $errorMsg[] = "Your email address appears to be incorrect.";
+            $emailERROR = true;
+        } elseif ($sql_email) { 
+            $errorMsg[] = "Sorry, an Account has already been made for this email address.";
+            $emailERROR = true;
+        } elseif (!$sql_email) { 
+            $emailERROR = false;
+        }
+
+        if ($password == "") {
+            $errorMsg[] = "Please enter a password";
+            $passwordERROR = true;
+        } elseif (!verifyAlphaNum($password)) {
+            $errorMsg[] = "Your password appears to have extra character.";
+            $passwordERROR = true;
+        } 
+        
+        if ($username == "") {
+            $errorMsg[] = "Please enter a password";
+            $usernameERROR = true;
+        } elseif (!verifyAlphaNum($username)) {
+            $errorMsg[] = "Your password appears to have extra character.";
+            $usernameERROR = true;
+        } elseif ($sql_user) {
+            $errorMsg[] = "Sorry, that username is already taken.";
+            $usernameERROR = true;
+        } elseif (!$sql_user) {
+            $usernameERROR = false;
+        }
+
+        if ($fname == "") {
+            $errorMsg[] = "Please enter your first name";
+            $fnameERROR = true;
+        } elseif (!verifyAlphaNum($fname)) {
+            $errorMsg[] = "Your first name appears to have extra character.";
+            $fnameERROR = true;
+        }
+
+        if ($lname == "") {
+            $errorMsg[] = "Please enter your last name";
+            $lnameERROR = true;
+        } elseif (!verifyAlphaNum($lname)) {
+            $errorMsg[] = "Your last name appears to have extra character.";
+            $lnameERROR = true;
+        }
+
+        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        //
+    // SECTION: 2d Process Form - Passed Validation
+        //
+    // Process for when the form passes validation (the errorMsg array is empty)
+        //
+    
+      
+        if (!$errorMsg) {
+            if ($debug)
+                print "<p>Form is valid</p>";
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+            //
+        //
+        
     
     
     $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
@@ -153,112 +257,11 @@ if (isset($_POST["btnSubmit"])) {
 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //
- // SECTION: 2a Security
-        // 
-        if (!securityCheck(true)) {
-            $msg = "<p>Sorry you cannot access this page. ";
-            $msg.= "Security breach detected and reported</p>";
-            die($msg);
-        }
-    
-        
-        
-        
-    // SECTION: 2b Sanitize (clean) data 
-        // remove any potential JavaScript or html code from users input on the
-        // form. Note it is best to follow the same order as declared in section 1c.
-        $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
-        $dataRecord[] = $email;
-        
-        $username = filter_var($_POST["txtUsername"], ENT_QUOTES, "UTF-8");
-        $dataRecord[] = $username;
-
-        $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
-        $dataRecord[] = $password;
-
-        $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
-        $dataRecord[] = $fname;
-
-        $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
-        $dataRecord[] = $lname;
+// AND SECURITY THING
 
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //
-    // SECTION: 2c Validation
-        //
-    // Validation section. Check each value for possible errors, empty or
-        // not what we expect. You will need an IF block for each element you will
-        // check (see above section 1c and 1d). The if blocks should also be in the
-        // order that the elements appear on your form so that the error messages
-        // will be in the order they appear. errorMsg will be displayed on the form
-        // see section 3b. The error flag ($emailERROR) will be used in section 3c.
-
-        if ($email == "") {
-            $errorMsg[] = "Please enter your email address";
-            $emailERROR = true;
-        } elseif (!verifyEmail($email)) {
-            $errorMsg[] = "Your email address appears to be incorrect.";
-            $emailERROR = true;
-        } elseif ($sql_email) { 
-            $errorMsg[] = "Sorry, an Account has already been made for this email address.";
-            $emailERROR = true;
-        } elseif (!$sql_email) { 
-            $emailERROR = false;
-        }
-
-        if ($password == "") {
-            $errorMsg[] = "Please enter a password";
-            $passwordERROR = true;
-        } elseif (!verifyAlphaNum($password)) {
-            $errorMsg[] = "Your password appears to have extra character.";
-            $passwordERROR = true;
-        } 
-        
-        if ($username == "") {
-            $errorMsg[] = "Please enter a password";
-            $usernameERROR = true;
-        } elseif (!verifyAlphaNum($username)) {
-            $errorMsg[] = "Your password appears to have extra character.";
-            $usernameERROR = true;
-        } elseif ($sql_user) {
-            $errorMsg[] = "Sorry, that username is already taken.";
-            $usernameERROR = true;
-        } elseif (!$sql_user) {
-            $usernameERROR = false;
-        }
-
-        if ($fname == "") {
-            $errorMsg[] = "Please enter your first name";
-            $fnameERROR = true;
-        } elseif (!verifyAlphaNum($fname)) {
-            $errorMsg[] = "Your first name appears to have extra character.";
-            $fnameERROR = true;
-        }
-
-        if ($lname == "") {
-            $errorMsg[] = "Please enter your last name";
-            $lnameERROR = true;
-        } elseif (!verifyAlphaNum($lname)) {
-            $errorMsg[] = "Your last name appears to have extra character.";
-            $lnameERROR = true;
-        }
-
-        //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        //
-    // SECTION: 2d Process Form - Passed Validation
-        //
-    // Process for when the form passes validation (the errorMsg array is empty)
-        //
-    
-      
-        if (!$errorMsg) {
-            if ($debug)
-                print "<p>Form is valid</p>";
-            //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-            //
-        //
+    //MOVING VALIDATIONS AND SANITISATIONS ABOVE!!!
         // SECTION: 2e Save Data
             //
         // This block saves the data to a CSV file.
@@ -279,16 +282,14 @@ if (isset($_POST["btnSubmit"])) {
             //
         // Process for mailing a message which contains the forms data
             // the message was built in section 2f.
-             $to = $email; // the person who filled out the form
-        $cc = "";
-        $bcc = "";
-        $from = "WRONG site <noreply@yoursite.com>";
-
-        // subject of mail should make sense to your form
-        $todaysDate = strftime("%x");
-        $subject = "Welcome to the Random Task: " . $todaysDate;
-
-        mail($to, $subject, $message, $headers);
+            $to = $email; // the person who filled out the form
+            $cc = "";
+            $bcc = "";
+            $from = "Random Task Registration Confirmation Email <noreply@yoursite.com>";
+            // subject of mail should make sense to your form
+            $todaysDate = strftime("%x");
+            $subject = "Welcome to Random Task: " . $todaysDate;
+            mail($to, $subject, $message, $headers);
         } // end form is valid
     } //something else...?
 }// ends if form was submitted.
@@ -310,10 +311,6 @@ if (isset($_POST["btnSubmit"])) {
 // 
 // If its the first time coming to the form or there are errors we are going
 // to display the form.
- if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
-        print "<h1> Congratulations! You should receive a confirmation email shortly. </h1>";
-
-
 if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
     print "<h1> Congratulations! You should receive a confirmation email shortly. </h1>";
 } else {
