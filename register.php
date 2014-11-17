@@ -390,8 +390,9 @@ if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked w
     include "include/footer.php";
     if ($debug) {
         print "<p>END OF PROCESSING</p>";
-    }
+    }// i just wanted to say hi!
     ?>
+
 
 </body>
 </html>
