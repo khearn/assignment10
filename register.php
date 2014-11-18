@@ -86,8 +86,9 @@ if (isset($_POST["btnSubmit"])) {
     //$approved = sha1($confirm);
     // add gender later
     // 
-
-    
+	$statement = $thisDatabase->db->prepare($query);
+     $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldLastName, fldFirstName, fldDate, fldHash) "
+                    . "VALUES ('" . $email . "', '" . $username . "', '" . $hash . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
 
     /**
      * Generates password hash from password and sets it to the model
@@ -108,25 +109,17 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
     
     /*  $dataEntered = false;
         try { */
-           $thisDatabase->db->prepare($query);  /*THIS IS THE LINE YOU NEED TO FIX */
+      //*     $thisDatabase->db->prepare($query);  /*THIS IS THE LINE YOU NEED TO FIX */
 
 
-            $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldLastName, fldFirstName, fldDate, fldHash) "
-                    . "VALUES ('" . $email . "', '" . $username . "', '" . $hash . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
+           
 
             if ($debug) {
                 print $query;
             }
 
-            $data = array($email);
-            $data[] = $username;
-            $data[] = $hash;
-            $data[] = $fname;
-            $data[] = $lname;
-            $data[] = $date;
-            $data[] = $confirm;
 
-            $records = $thisDatabase->insert($query, $data);
+            $records = $thisDatabase->db->insert($query);
 
             if ($debug) {
                 print "<div>" . count($records) . " records created.</div>";
