@@ -14,12 +14,7 @@ if (isset($_GET["debug"])) { // ONLY do this in a classroom environment
 }
 if ($debug)
     print "<p>DEBUG MODE IS ON</p>";
-<<<<<<< HEAD
 
-
-
-=======
->>>>>>> FETCH_HEAD
 require_once('../bin/myDatabase.php');
 $dbUserName = 'khearn_writer';
 $whichPass = "w"; //flag for which one to use.
@@ -45,11 +40,7 @@ $fname = "";
 $lname = "";
 $date = date("Y-m-d-H-i-s");
 $hash = "";
-<<<<<<< HEAD
 
-
-=======
->>>>>>> FETCH_HEAD
 $confirm = "";
 $headers = "";
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -95,7 +86,7 @@ if (isset($_POST["btnSubmit"])) {
     
      $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldLastName, fldFirstName, fldDate, fldHash) "
                     . "VALUES ('" . $email . "', '" . $username . "', '" . $hash . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
-<<<<<<< HEAD
+
 
 	$server = "webdb.uvm.edu";
 	$user =  "mljoy_admin";
@@ -109,20 +100,20 @@ if (isset($_POST["btnSubmit"])) {
 	}
 	
 	else{
-	echo 'This connected';
+	//echo 'This connected';
 	}
 	
 	if($connect->query($query) === TRUE) {
-	echo 'This worked';
+//	echo 'This worked';
 	}
 	
 	else {
-	echo 'Ya done goofed, eh?';
+//	echo 'Ya done goofed, eh?';
 	}
     
-    echo $query;
-=======
->>>>>>> FETCH_HEAD
+//    echo $query;
+
+
     /**
      * Generates password hash from password and sets it to the model
      *
@@ -147,7 +138,7 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
             if ($debug) {
                 print $query;
             }
-            $records = $thisDatabase->db->insert($query);
+            
 
 
            
