@@ -14,9 +14,12 @@ if (isset($_GET["debug"])) { // ONLY do this in a classroom environment
 }
 if ($debug)
     print "<p>DEBUG MODE IS ON</p>";
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> FETCH_HEAD
 require_once('../bin/myDatabase.php');
 $dbUserName = 'khearn_writer';
 $whichPass = "w"; //flag for which one to use.
@@ -42,8 +45,11 @@ $fname = "";
 $lname = "";
 $date = date("Y-m-d-H-i-s");
 $hash = "";
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> FETCH_HEAD
 $confirm = "";
 $headers = "";
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -74,7 +80,6 @@ $mailed = false; // have we mailed the information to the user?
 //
 if (isset($_POST["btnSubmit"])) {
     
-
     
     
     $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
@@ -82,16 +87,15 @@ if (isset($_POST["btnSubmit"])) {
     $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
     $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
     $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
-
     $confirm = sha1($email);
     $hash = sha1($password);
-
     //$approved = sha1($confirm);
     // add gender later
     // 
     
      $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldLastName, fldFirstName, fldDate, fldHash) "
                     . "VALUES ('" . $email . "', '" . $username . "', '" . $hash . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
+<<<<<<< HEAD
 
 	$server = "webdb.uvm.edu";
 	$user =  "mljoy_admin";
@@ -117,6 +121,8 @@ if (isset($_POST["btnSubmit"])) {
 	}
     
     echo $query;
+=======
+>>>>>>> FETCH_HEAD
     /**
      * Generates password hash from password and sets it to the model
      *
@@ -137,6 +143,11 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
     /*  $dataEntered = false;
         try { */
       //*     $thisDatabase->db->prepare($query);  /*THIS IS THE LINE YOU NEED TO FIX */
+           
+            if ($debug) {
+                print $query;
+            }
+            $records = $thisDatabase->db->insert($query);
 
 
            
@@ -153,7 +164,6 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
                 print_r($data);
             }
             $firstTime = true;
-
 /*
             // all sql statements are done so lets commit to our changes
             $dataEntered = $thisDatabase->db->commit();
@@ -193,16 +203,12 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
         
         $username = htmlentities($_POST["txtUsername"], ENT_QUOTES, "UTF-8");
         $dataRecord[] = $username;
-
         $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
         $dataRecord[] = $password;
-
         $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
         $dataRecord[] = $fname;
-
         $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
         $dataRecord[] = $lname;
-
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -215,7 +221,6 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
         // order that the elements appear on your form so that the error messages
         // will be in the order they appear. errorMsg will be displayed on the form
         // see section 3b. The error flag ($emailERROR) will be used in section 3c.
-
         if ($email == "") {
             $errorMsg[] = "Please enter your email address";
             $emailERROR = true;
@@ -228,7 +233,6 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
         } elseif (!$sql_email) { 
             $emailERROR = false;
         }*/
-
         if ($password == "") {
             $errorMsg[] = "Please enter a password";
             $passwordERROR = true;
@@ -249,7 +253,6 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
         } elseif (!$sql_user) {
             $usernameERROR = false;
         }*/
-
         if ($fname == "") {
             $errorMsg[] = "Please enter your first name";
             $fnameERROR = true;
@@ -257,7 +260,6 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
             $errorMsg[] = "Your first name appears to have extra character.";
             $fnameERROR = true;
         }
-
         if ($lname == "") {
             $errorMsg[] = "Please enter your last name";
             $lnameERROR = true;
@@ -265,7 +267,6 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
             $errorMsg[] = "Your last name appears to have extra character.";
             $lnameERROR = true;
         }
-
         //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         //
     // SECTION: 2d Process Form - Passed Validation
@@ -293,7 +294,6 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
             $message = 'Welcome! Please click this link to confirm.';
             $message .= " https://khearn.w3.uvm.edu/cs148/assignment10/confirm.php?q=";
             $message .= $confirm;
-
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             //
         // SECTION: 2g Mail to user
@@ -304,11 +304,9 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
         $cc = "";
         $bcc = "";
         $from = "WRONG site <noreply@yoursite.com>";
-
         // subject of mail should make sense to your form
         $todaysDate = strftime("%x");
         $subject = "Welcome to the Random Task: " . $todaysDate;
-
         mail($to, $subject, $message, $headers);
        // } // end form is valid
     } //something else...?
