@@ -15,6 +15,8 @@ if (isset($_GET["debug"])) { // ONLY do this in a classroom environment
 if ($debug)
     print "<p>DEBUG MODE IS ON</p>";
 
+
+
 require_once('../bin/myDatabase.php');
 $dbUserName = 'khearn_writer';
 $whichPass = "w"; //flag for which one to use.
@@ -38,8 +40,9 @@ $username = "";
 $password = "";
 $fname = "";
 $lname = "";
-$date = "";
+$date = date("Y-m-d-H-i-s");
 $hash = "";
+
 
 $confirm = "";
 $headers = "";
@@ -75,7 +78,7 @@ if (isset($_POST["btnSubmit"])) {
     
     
     $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
-    $username = filter_var($_POST["txtUsername"], ENT_QUOTES, "UTF-8");
+    $username = htmlentities($_POST["txtUsername"], ENT_QUOTES, "UTF-8");
     $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
     $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
     $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
@@ -86,10 +89,34 @@ if (isset($_POST["btnSubmit"])) {
     //$approved = sha1($confirm);
     // add gender later
     // 
-	$statement = $thisDatabase->db->prepare($query);
+    
      $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldLastName, fldFirstName, fldDate, fldHash) "
                     . "VALUES ('" . $email . "', '" . $username . "', '" . $hash . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
 
+	$server = "webdb.uvm.edu";
+	$user =  "mljoy_admin";
+	$myPassword = "TwV28wTWrWZz95vk";
+	$dataBase = "MLJOY_RANDOM_TASK";
+	
+	$connect = mysqli_connect($server, $user, $myPassword, $dataBase);
+	
+	if($connect->connect_error) {
+	die("CONNECTION FAILED: " . $connect->connect_error);
+	}
+	
+	else{
+	echo 'This connected';
+	}
+	
+	if($connect->query($query) === TRUE) {
+	echo 'This worked';
+	}
+	
+	else {
+	echo 'Ya done goofed, eh?';
+	}
+    
+    echo $query;
     /**
      * Generates password hash from password and sets it to the model
      *
@@ -119,7 +146,7 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
             }
 
 
-            $records = $thisDatabase->db->insert($query);
+           /* $records = $thisDatabase->db->insert($query); */
 
             if ($debug) {
                 print "<div>" . count($records) . " records created.</div>";
@@ -164,7 +191,7 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
         $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
         $dataRecord[] = $email;
         
-        $username = filter_var($_POST["txtUsername"], ENT_QUOTES, "UTF-8");
+        $username = htmlentities($_POST["txtUsername"], ENT_QUOTES, "UTF-8");
         $dataRecord[] = $username;
 
         $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
@@ -211,7 +238,7 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
         } 
         
         if ($username == "") {
-            $errorMsg[] = "Please enter a password";
+            $errorMsg[] = "Please enter a username";
             $usernameERROR = true;
         } elseif (!verifyAlphaNum($username)) {
             $errorMsg[] = "Your password appears to have extra character.";
@@ -384,7 +411,7 @@ if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked w
                 <label for="pwdPassword">Password
                     <input type="password" id="pwdPassword" name="pwdPassword"
                            value="<?php print $password ?>"
-                           tabindex="400" maxlength="45" placeholder="Please enter a valid Email Address"
+                           tabindex="400" maxlength="45" placeholder="Please enter a valid password"
     <?php if ($passwordERROR) print 'class="mistake"'; ?>
                            onfocus="this.select()"
                            >
