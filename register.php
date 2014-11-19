@@ -109,6 +109,17 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
                 print $query;
             }
             $records = $thisDatabase->db->insert($query);
+
+
+           
+
+            if ($debug) {
+                print $query;
+            }
+
+
+            $records = $thisDatabase->db->insert($query);
+
             if ($debug) {
                 print "<div>" . count($records) . " records created.</div>";
                 print_r($data);
