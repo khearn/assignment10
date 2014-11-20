@@ -33,6 +33,10 @@ aside {
     border-radius: 10px;
 }
 
+article {
+    margin: 20px;
+}
+
 /*  ---------------- Login Bar ------------------- */
 #login {
     
@@ -237,8 +241,8 @@ label {
 }
 
 /*  ----------------  About Us  ------------------- */
-#about_us {
-
+#about_us article {
+    margin-right: 20px;
 }
 
 /*  ----------------  Forms  ------------------- */
@@ -281,7 +285,15 @@ th, td {
 }
 
 /*  ----------------  Images  ------------------- */
-
+img.us {
+    border-radius: 100%;
+    display: block;
+    width: 200px;
+    height: 200px;
+    float: right;
+    position: relative;
+    margin-top: 20px;
+}
 
 
 /*  ----------------  Footer  ------------------- */

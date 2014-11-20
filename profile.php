@@ -7,9 +7,11 @@
     include "include/nav.php";
 ?>
 
+<!-- user nav bar. That way when you log in it should auto send you to profile.php, so no one without an account can see the user only pages -->
+
+
 <article>
-    <h2>Profile</h2>
-    <!-- Testing out a calendar -->
+    <h2>Profile</h2>    
     <!-- http://php.about.com/od/finishedphp1/ss/php_calendar_5.htm#step-heading -->
     <?php
     /*

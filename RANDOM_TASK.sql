@@ -12,6 +12,13 @@ CREATE TABLE IF NOT EXISTS tblUsers (
     UNIQUE KEY (pmkUsername)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS tblPicture (
+    fnkUsername varchar(64) NOT NULL, 
+    fldPicture BLOB NOT NULL, 
+    pmkPictureId int(11) NOT NULL AUTO_INCREMENT, 
+    PRIMARY KEY (pmkPictureId) 
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 /* or this table
 CREATE TABLE IF NOT EXISTS tblDemographics (
     fnkEmail varchar(320) NOT NULL,
