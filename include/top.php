@@ -58,6 +58,7 @@ error_reporting(E_ALL); ?>
         //if (($path_parts['filename'] == "register") OR ($path_parts['filename'] == "manage_task") OR ($path_parts['filename'] == "login/login")) {
         require "lib/validation-functions.php";
         require "lib/mail-message.php";
+        include "cookie.php";
         //}
         ?>	
 

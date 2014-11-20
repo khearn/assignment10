@@ -14,6 +14,12 @@ and open the template in the editor.
 
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 p {
     text-indent: 3em;
     font-family: "Courier New", Courier, monospace;
@@ -33,8 +39,10 @@ aside {
     border-radius: 10px;
 }
 
+
 article {
     margin: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 /*  ---------------- Login Bar ------------------- */
@@ -164,7 +172,7 @@ input:focus {
 }
 
 /* ------- FORM -------- */
-#form article#main, a, footer, p{
+#form article#main {
     background-color:rgba(255, 255, 255, 0.8);
 }
 #form article#main{
@@ -299,6 +307,24 @@ img.us {
 /*  ----------------  Footer  ------------------- */
 footer {
     display: block;
-
+    position: absolute;
+    bottom: 0;
+    background-color: #162252;
+    width: 100%;
+    color: #E6E8FA;
+    text-align: center;
+    padding-left: auto;
+    padding-right: auto;
+    display: inline-block;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
-
+/*
+footer p {
+    text-align: center;
+    padding-left: auto;
+    padding-right: auto;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+*/
