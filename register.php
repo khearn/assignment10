@@ -404,7 +404,6 @@ if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked w
 
 
                 <fieldset class="buttons">
-                    <legend></legend>
                     <input type="submit" id="btnSubmit" name="btnSubmit" value="Sign Up" tabindex="900" class="button">
                 </fieldset> <!-- ends buttons -->
 

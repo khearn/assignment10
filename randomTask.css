@@ -148,7 +148,7 @@ form#frmRegisterinput#txtfname, form#frmRegisterinput#txtlname, form#frmRegister
 }
 
 input.button {
-    width:100px;
+    width:auto;
     right:20px;
     bottom:20px;
     background:#09C;
@@ -160,6 +160,7 @@ input.button {
     border-radius: 15px;
     border: 1px solid #999;
     margin-top: 20px;
+    display: block;
 }
 
 input.button:hover {
