@@ -12,6 +12,84 @@
 
 <article>
     <h2>Profile</h2>    
+    
+    <?php
+$debug=false;
+//############################################################################
+//
+// This page lists your tables and fields within your database. if you click on
+// a database name it will show you all the records for that table.
+//
+//############################################################################
+
+// set up variables for database
+require_once('../bin/myDatabase.php');
+$dbUserName = 'khearn_writer';
+$whichPass = "w"; //flag for which one to use.
+$dbName = 'KHEARN_RANDOM_TASK';
+$thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
+
+    /* ##### html setup */
+    
+    $phpSelf = htmlentities($_SERVER['PHP_SELF'], ENT_QUOTES, "UTF-8");
+    $path_parts = pathinfo($phpSelf);
+    print '<body id="' . $path_parts['filename'] . '">';
+
+    
+    /* ##### Step two 
+     * 
+     * open the file that contains the query
+
+    */
+    //$myfile = fopen("q01.sql", "r") or die("Unable to open file!");
+    $query = "SELECT fldTask as Task, fldToDoDate as Date FROM tblTasks ORDER BY fldToDoDate ASC";
+
+    $date_query = "SELECT fldToDoDate, fldTask FROM tblTasks ORDER BY fldToDoDate ASC";
+    $task_query = "SELECT fldTask FROM tblTasks WHERE fldToDoDate='".$date_query."'";
+    /* ##### Step three
+     * Execute the query
+
+     *      */
+    $results = $thisDatabase->select($query);
+
+    
+     /* ##### Step four
+     * prepare output and loop through array
+
+     *      */
+    $numberRecords = count($results);
+
+    print "<table>";
+
+    $firstTime = true;
+
+    /* since it is associative array display the field names */
+    foreach ($results as $row) {
+        if ($firstTime) {
+            print "<thead><tr>";
+            $keys = array_keys($row);
+            foreach ($keys as $key) {
+                if (!is_int($key)) {
+                    print "<th>" . $key . "</th>";
+                }
+            }
+            print "</tr>";
+            $firstTime = false;
+        }
+        
+        /* display the data, the array is both associative and index so we are
+         *  skipping the index otherwise records are doubled up */
+        print "<tr>";
+        foreach ($row as $field => $value) {
+            if (!is_int($field)) {
+                print "<td>" . $value . "</td>";
+            }
+        }
+        print "</tr>";
+    }
+    print "</table>";
+    ?>
+    
     <!-- http://php.about.com/od/finishedphp1/ss/php_calendar_5.htm#step-heading -->
     <?php
     /*

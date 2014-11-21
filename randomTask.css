@@ -238,6 +238,15 @@ label {
 
 }
 
+ol {
+    list-style: none;
+}
+
+ol li tr td {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 /*  ----------------  Manage Tasks  ------------------- */
 #manage_task {
 
@@ -290,6 +299,7 @@ th, td {
     border-width: 2px;
     border-style: inset;
     width: 50px;
+    padding: 10px;
 }
 
 /*  ----------------  Images  ------------------- */
@@ -307,7 +317,7 @@ img.us {
 /*  ----------------  Footer  ------------------- */
 footer {
     display: block;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     background-color: #162252;
     width: 100%;

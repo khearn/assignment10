@@ -47,6 +47,7 @@ $task = "";
 $details = "";
 $toDoDate = "";
 $category = "";
+$taskId = "";
 
 $taskERROR = false;
 $toDoDateERROR = false;
@@ -119,13 +120,16 @@ if (isset($_POST["btnSubmit"])) {
     if (!$errorMsg) {
         if ($debug)
             print "<p>Form is valid</p>";
-
+//M/D/Y --> Y-M-D
 
         $query = "INSERT INTO tblTasks "
                 . "JOIN tblRelationship ON pmkTaskId=fnkTaskId "
                 . "JOIN tblCategories ON pmkCategoryId=fnkCategoryId "
-                . "(fldTask, fldDescription, fldToDoDate, fldCategory) "
-                . "VALUES ('" . $task . "', '" . $details . "', '" . $toDoDate . "', '" . $category . "')";
+                . "(fldTask, fldDescription, fldToDoDate, fldCategory, fnkEmail) "
+                . "VALUES ('" . $task . "', '" . $details . "', '" . $toDoDate . "', '" . $category . "', 'khearn@uvm.edu')";
+        //?$query = "INSERT INTO tblTasks (fldTask, fldDescription, fldToDoDate, fnkEmail, pmkTaskId) VALUES ('" . $task . "', '" . $details . "', '" . $toDoDate . "', 'khearn@uvm.edu', '" . $taskId . "')";
+        //?$query = "INSERT INTO tblRelationship (fnkCategoryId, fnkTaskId, fnkEmail) VALUES ('" . $catId . "', '" . $taskId . "', 'khearn@uvm.edu')";
+        
 
         $data = array($task);
         $data[] = $details;
