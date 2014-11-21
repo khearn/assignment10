@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS tblRandomTask (
     PRIMARY KEY (pmkRandomTaskId)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS tblRelationship (
+CREATE TABLE IF NOT EXISTS tblTaskship (
     fnkEmail varchar(320) NOT NULL,
     fnkRandomTaskId int(11) NOT NULL,
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
