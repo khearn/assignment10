@@ -41,6 +41,7 @@ $date = date("Y-m-d-H-i-s");
 $hash = "";
 $confirm = "";
 $headers = "";
+$pic = "";
 //$file_uploads = On;
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
@@ -54,6 +55,7 @@ $passwordERROR = false;
 $fnameERROR = false;
 $lnameERROR = false;
 $dateERROR = false;
+$picERROR = false;
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1e misc variables
@@ -77,6 +79,7 @@ if (isset($_POST["btnSubmit"])) {
     $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
     $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
     $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
+    
     $confirm = sha1($email);
     $hash = sha1($password);
     //$approved = sha1($confirm);
@@ -145,6 +148,43 @@ if (isset($_POST["btnSubmit"])) {
         print_r($data);
     }
     $firstTime = true;
+    
+    //Added
+    
+    $query = "INSERT INTO tblPicture(fnkUsername, fldPicture)"
+            . "VALUES ('".$username."','".$pic."')";
+    $connect = mysqli_connect($server, $user, $myPassword, $dataBase);
+
+    if ($connect->connect_error) {
+        die("CONNECTION FAILED: " . $connect->connect_error);
+    } else {
+        //echo 'This connected';
+    }
+
+    if ($connect->query($query) === TRUE) {
+//	echo 'This worked';
+    } else {
+//	echo 'Ya done goofed, eh?';
+    }
+if ($debug) {
+        print $query;
+    }
+
+
+    if ($debug) {
+        print $query;
+    }
+    /* $records = $thisDatabase->db->insert($query); */
+    if ($debug) {
+        print "<div>" . count($records) . " records created.</div>";
+        print_r($data);
+    }
+    
+    $primaryKey = $thisDatabase->lastInsert();
+            if ($debug) {
+                print "<p>pmkPictureId= " . $primaryKey . "</p>";
+            }
+    
     /*
       // all sql statements are done so lets commit to our changes
       $dataEntered = $thisDatabase->db->commit();
@@ -401,7 +441,6 @@ if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked w
                            tabindex="450" 
                            >
                 </label>
-
 
                 <fieldset class="buttons">
                     <input type="submit" id="btnSubmit" name="btnSubmit" value="Sign Up" tabindex="900" class="button">
