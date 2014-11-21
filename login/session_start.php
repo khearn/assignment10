@@ -1,7 +1,6 @@
 <?php
 // Set session variables
-$_SESSION["pmkUsername"] = $username;
-$_SESSION["pmkEmail"] = $email;
-$_SESSION["fldPassword"] = $hash;
+$_SESSION["myusername"] = $myusername;
+$_SESSION["mypassword"] = $mypassword;
 echo "Session variables are set.";
 ?>

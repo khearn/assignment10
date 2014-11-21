@@ -79,6 +79,7 @@ if (isset($_POST["btnSubmit"])) {
     $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
     $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
     $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
+    $pic = file_get_contents($_FILES['fileToUpload']['name']);
     
     $confirm = sha1($email);
     $hash = sha1($password);
@@ -86,6 +87,7 @@ if (isset($_POST["btnSubmit"])) {
     // add gender later
     // 
 
+//Query for Users!
     $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldLastName, fldFirstName, fldDate, fldHash) "
             . "VALUES ('" . $email . "', '" . $username . "', '" . $hash . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
     //Switchon and off between us.
@@ -150,7 +152,7 @@ if (isset($_POST["btnSubmit"])) {
     $firstTime = true;
     
     //Added
-    
+    //Query for Profile Pictures!!
     $query = "INSERT INTO tblPicture(fnkUsername, fldPicture)"
             . "VALUES ('".$username."','".$pic."')";
     $connect = mysqli_connect($server, $user, $myPassword, $dataBase);
