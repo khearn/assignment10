@@ -18,7 +18,6 @@ print '<article id="main">';
 
 print '<h1>Registration Confirmation</h1>';
 
-print '<p>Thank you for confirming your account.  An administrator will look over your submition and will send you a follow up email when your account is officially approved.</p>';
 
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
@@ -28,9 +27,9 @@ print '<p>Thank you for confirming your account.  An administrator will look ove
 // variables for the classroom purposes to help find errors.
 
 require_once('../bin/myDatabase.php');
-$dbUserName = 'khearn_writer';
+$dbUserName = 'mljoy_writer';
 $whichPass = "w"; //flag for which one to use.
-$dbName = 'KHEARN_RANDOM_TASK';
+$dbName = 'MLJOY_RANDOM_TASK';
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 
 $debug = false;
@@ -41,10 +40,100 @@ if ($debug)
     print "<p>DEBUG MODE IS ON</p>";
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 
-$adminEmail = "khearn@uvm.edu";
-$message = "<p>I am sorry but this project cannot be confrimed at this time. Please call (802) 656-1234 for help in resolving this matter.</p>";
+$query = "SELECT fldHash FROM tblUsers WHERE fldHash = '$check'";
+
+//execute query
+$results = $thisDatabase->select($query);
 
 
+
+foreach ($results as $row) {
+        if ($firstTime) {
+            
+            $keys = array_keys($row);
+            foreach ($keys as $key) {
+                if (!is_int($key)) {
+                
+                }
+            }
+            
+            $firstTime = false;
+        }
+        
+        /* display the data, the array is both associative and index so we are
+         *  skipping the index otherwise records are doubled up */
+        
+        foreach ($row as $field => $value) {
+            if (!is_int($field)) {
+                
+            }
+        }
+       
+    }
+
+
+
+if ($results != "") {
+
+$query = "UPDATE tblUsers SET fldLinkCheck = '1' WHERE fldHash = '$check' ";
+$records = $thisDatabase->insert($query);
+
+print "<p> Congratulations! Account verified. An email has been sent to an administrator for approval.";
+
+$query = "SELECT fldApprove FROM tblUsers WHERE fldHash = '$check' ";
+
+$results = $thisDatabase->select($query);
+
+
+
+foreach ($results as $row) {
+        if ($firstTime) {
+            
+            $keys = array_keys($row);
+            foreach ($keys as $key) {
+                if (!is_int($key)) {
+                
+                }
+            }
+            
+            $firstTime = false;
+        }
+        
+        /* display the data, the array is both associative and index so we are
+         *  skipping the index otherwise records are doubled up */
+        
+        foreach ($row as $field => $value) {
+            if (!is_int($field)) {
+                
+            }
+        }
+       
+    }
+
+
+
+$message = "User for web page has been verified. ";
+$message .= "https://mljoy.w3.uvm.edu/cs148/assignment10/approve.php?q=";
+$message .= "$value";
+
+$subject = "User Registration";
+$to = "mljoy@uvm.edu";
+$headers = " ";
+mail($to, $subject, $message, $headers);
+}
+else {
+print "<p> Oh no! We couldn't find you on the server. Please call us for assistance. </p>";
+}
+
+	
+include "footer.php"; ?>
+
+</body>
+</html>
+
+
+
+<?php
 //##############################################################
 //
 // SECTION: 2 
@@ -164,4 +253,4 @@ if ($debug)
 ?>
 
 </body>
-</html>
+</html> */
