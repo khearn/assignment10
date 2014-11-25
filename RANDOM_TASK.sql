@@ -19,6 +19,26 @@ CREATE TABLE IF NOT EXISTS tblPicture (
     PRIMARY KEY (pmkPictureId) 
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS tblPicture (
+    fnkUsername varchar(64) NOT NULL,
+    pmkPictureId int(11) NOT NULL AUTO_INCREMENT, 
+    fldPicName VarChar(255) Not Null Default 'Untitled.txt',  ($name)
+    fldMime VarChar(50) Not Null Default 'text/plain',   ($mime)
+    fldSize BigInt Unsigned Not Null Default 0,
+    fldPicture MediumBlob Not Null,
+    fldCreated DateTime Not Null,
+    PRIMARY KEY (pmkPictureId)
+)
+
+CREATE TABLE `file` (
+    `id`        Int Unsigned Not Null Auto_Increment,
+    `name`      VarChar(255) Not Null Default 'Untitled.txt',
+    `mime`      VarChar(50) Not Null Default 'text/plain',
+    `size`      BigInt Unsigned Not Null Default 0,
+    `data`      MediumBlob Not Null,
+    `created`   DateTime Not Null,
+    PRIMARY KEY (`id`)
+)
 /* or this table
 CREATE TABLE IF NOT EXISTS tblDemographics (
     fnkEmail varchar(320) NOT NULL,

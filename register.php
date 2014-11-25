@@ -1,5 +1,3 @@
-
-
 <?php
 include "include/top.php";
 include "include/header.php";
@@ -18,9 +16,14 @@ if ($debug)
     print "<p>DEBUG MODE IS ON</p>";
 
 require_once('../bin/myDatabase.php');
+/*
 $dbUserName = 'mljoy_writer';
 $whichPass = "w"; //flag for which one to use.
 $dbName = 'MLJOY_RANDOM_TASK';
+ */
+$dbUserName = 'khearn_writer';
+$whichPass = "w"; //flag for which one to use.
+$dbName = 'KHEARN_RANDOM_TASK';
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
@@ -73,9 +76,7 @@ $mailed = false; // have we mailed the information to the user?
 //
 //
 if (isset($_POST["btnSubmit"])) {
-    
-    
-    
+        
     $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
     $username = htmlentities($_POST["txtUsername"], ENT_QUOTES, "UTF-8");
     $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
@@ -88,13 +89,22 @@ if (isset($_POST["btnSubmit"])) {
     // add gender later
     // 
     
-     $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldFirstName, fldLastName, fldDate, fldHash) VALUES ('" . $email . "', '" . $username . "', '" . $hash . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
-
-
-	$server = "webdb.uvm.edu";
+    //without picture.
+    $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldFirstName, fldLastName, fldDate, fldHash) VALUES ('" . $email . "', '" . $username . "', '" . $hash . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
+     
+    //With Picture
+ //   $query = "INSERT INTO tblPicture(fnkUsername, fldPicture) VALUES ('".$username."', '".$pic."') ";
+    
+/*
+        $server = "webdb.uvm.edu";
 	$user =  "mljoy_admin";
 	$myPassword = "TwV28wTWrWZz95vk";
 	$dataBase = "MLJOY_RANDOM_TASK";
+*/
+	$server = "webdb.uvm.edu";
+	$user =  "khearn_admin";
+	$myPassword = "NetWt24oz";
+	$dataBase = "KHEARN_RANDOM_TASK";
 	
 	$connect = mysqli_connect($server, $user, $myPassword, $dataBase);
 	
@@ -141,10 +151,7 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
             if ($debug) {
                 print $query;
             }
-            
 
-
-           
 
             if ($debug) {
                 print $query;
@@ -185,8 +192,6 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
             $msg.= "Security breach detected and reported</p>";
             die($msg);
         }
-    
-        
         
         
     // SECTION: 2b Sanitize (clean) data 
@@ -286,7 +291,8 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
             // to the person filling out the form (section 2g).
             //?q means there will be a variable afterwards. 
             $message = 'Welcome! Please click this link to confirm.';
-            $message .= " https://mljoy.w3.uvm.edu/cs148/assignment10/confirm.php?q=";
+            //$message .= " https://mljoy.w3.uvm.edu/cs148/assignment10/confirm.php?q=";
+            $message .= " https://khearn.w3.uvm.edu/cs148/assignment10/confirm.php?q=";
             $message .= $confirm;
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             //
@@ -297,7 +303,7 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
              $to = $email; // the person who filled out the form
         $cc = "";
         $bcc = "";
-        $from = "WRONG site <noreply@yoursite.com>";
+        $from = "Random Task Confirmation <noreply@yoursite.com>";
         // subject of mail should make sense to your form
         $todaysDate = strftime("%x");
         $subject = "Welcome to the Random Task: " . $todaysDate;
@@ -408,15 +414,15 @@ if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked w
                            onfocus="this.select()"
                            >
                 </label> 
-	//okay NOW I remember, I was trying	to comment everything out but for some reason this
-	wouldn't comment out. but yeah, everything involving pictures is commented out now. Everything else is beautiful. Literally. That is the only thing I touched. 
-				<label for="imgProfilePic">Profile Picture
+                
+<!-- comment out 
+		<label for="imgProfilePic">Profile Picture
                     <input type="file" id="fileToUpload" name="fileToUpload"
-                           accept="image/gif, image/jpeg, image/png"
+                           accept="image/gif, image/jpeg, image/png, image/jpg"
                            tabindex="450" 
                            >
                 </label>
-                
+-->               
                 
                 
 
