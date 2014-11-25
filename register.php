@@ -42,9 +42,9 @@ $fname = "";
 $lname = "";
 $date = date("Y-m-d-H-i-s");
 $hash = "";
-
 $confirm = "";
 $headers = "";
+//$pic = "";
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1d form error flags
@@ -57,6 +57,7 @@ $passwordERROR = false;
 $fnameERROR = false;
 $lnameERROR = false;
 $dateERROR = false;
+//$picError = false;
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1e misc variables
@@ -82,6 +83,7 @@ if (isset($_POST["btnSubmit"])) {
     $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
     $confirm = sha1($email);
     $hash = sha1($password);
+    //$pic = file_get_contents($_FILES['fileToUpload']['name']);
     //$approved = sha1($confirm);
     // add gender later
     // 
@@ -405,8 +407,18 @@ if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked w
     <?php if ($passwordERROR) print 'class="mistake"'; ?>
                            onfocus="this.select()"
                            >
+                </label> 
+	//okay NOW I remember, I was trying	to comment everything out but for some reason this
+	wouldn't comment out. but yeah, everything involving pictures is commented out now. Everything else is beautiful. Literally. That is the only thing I touched. 
+				<label for="imgProfilePic">Profile Picture
+                    <input type="file" id="fileToUpload" name="fileToUpload"
+                           accept="image/gif, image/jpeg, image/png"
+                           tabindex="450" 
+                           >
                 </label>
-
+                
+                
+                
 
                 <fieldset class="buttons">
                     <legend></legend>
