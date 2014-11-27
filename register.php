@@ -318,6 +318,7 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
 ?>
 
 <article id="main">
+    <h2>Sign Up</h2>
 
 <?php
 //####################################

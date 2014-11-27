@@ -1,4 +1,7 @@
 <?php
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+
 include "include/top.php";
 //session_start();
 //include "session_start.php";
@@ -62,7 +65,7 @@ $mailed = false;
 if (isset($_POST["btnSubmit"])) {
 
 
-    $debug = false;
+    $debug = true;
     if (isset($_GET["debug"])) { // ONLY do this in a classroom environment
         $debug = true;
     }
@@ -122,19 +125,23 @@ if (isset($_POST["btnSubmit"])) {
             print "<p>Form is valid</p>";
 //M/D/Y --> Y-M-D
 
-        $query = "INSERT INTO tblTasks "
+        /*$query = "INSERT INTO tblTasks "
                 . "JOIN tblRelationship ON pmkTaskId=fnkTaskId "
                 . "JOIN tblCategories ON pmkCategoryId=fnkCategoryId "
                 . "(fldTask, fldDescription, fldToDoDate, fldCategory, fnkEmail) "
                 . "VALUES ('" . $task . "', '" . $details . "', '" . $toDoDate . "', '" . $category . "', 'khearn@uvm.edu')";
-        //?$query = "INSERT INTO tblTasks (fldTask, fldDescription, fldToDoDate, fnkEmail, pmkTaskId) VALUES ('" . $task . "', '" . $details . "', '" . $toDoDate . "', 'khearn@uvm.edu', '" . $taskId . "')";
-        //?$query = "INSERT INTO tblRelationship (fnkCategoryId, fnkTaskId, fnkEmail) VALUES ('" . $catId . "', '" . $taskId . "', 'khearn@uvm.edu')";
-        
+         * 
+         */
+        $query = "INSERT INTO tblTasks (fldTask, fldDescription, fldToDoDate, fnkEmail, pmkTaskId) VALUES ('" . $task . "', '" . $details . "', '" . $toDoDate . "', 'khearn@uvm.edu', '" . $taskId . "')";
+        $query = "INSERT INTO tblRelationship (fnkCategoryId, fnkTaskId, fnkEmail) VALUES ('" . $catId . "', '" . $taskId . "', 'khearn@uvm.edu')";
+        //$query = "SELECT tblCategories (pmkCategoryId, fldCategory) VALUES ('".$catId."', '".$category."')";
 
         $data = array($task);
         $data[] = $details;
         $data[] = $toDoDate;
         $data[] = $category;
+        $data[] = $taskId;
+        $data[] = $catId;
 
         $records = $thisDatabase->insert($query, $data);
     }
@@ -142,6 +149,7 @@ if (isset($_POST["btnSubmit"])) {
 ?>
 
 <article>
+    <h2>Create a Task</h2>
 
     <?php
     if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) {
@@ -158,7 +166,7 @@ if (isset($_POST["btnSubmit"])) {
     } else {
         ?>
 
-        <form action="/cs148/assignment10/register.php"
+        <form action="/cs148/assignment10/manage_task.php"
               method="post"
               id="frmRegister">
             <fieldset id="Make-a-Task">
