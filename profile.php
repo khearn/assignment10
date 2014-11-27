@@ -94,6 +94,9 @@ foreach ($dates as $date) {
         print "<td>";
             print '<a href="edit.php?id=' . $date["pmkTaskId"] . '">[Edit]</a> ';
         print "</td>";
+        print "<td>";
+            print '<a href="delete.php?id=' . $date["pmkTaskId"] . '">[Delete]</a> ';
+        print "</td>";
     }
         print "<td>";
             print "<div class='date'>" . $date['fldToDoDate'] . "</div>";
@@ -171,8 +174,13 @@ print "</article>";
         }
  * 
  */
+        
+        
+    include 'cal/default.php';
         ?>
       
+        
+        
     </aside>
 </article>
 

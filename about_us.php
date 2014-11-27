@@ -5,7 +5,7 @@ include "include/header.php";
 include "include/nav.php";
 ?>
 
-<img class="us" alt='us.jpg' src='us.jpg' >
+<img class="us" alt='pic/us.jpg' src='us.jpg' >
 <article>
     <h2>About Us</h2>
     <aside>

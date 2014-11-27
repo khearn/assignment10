@@ -224,6 +224,7 @@ if (isset($_POST["btnSubmit"])) {
 // to display the form.
 if ($dataEntered) { // closing of if marked with: end body submit
     print "<h1>Record Saved</h1> ";
+    print "<p>Return to your <a href='profile.php'>Task List</a></p>";
 } else {
 //####################################
 //
@@ -288,13 +289,13 @@ if ($dataEntered) { // closing of if marked with: end body submit
                 <!--<label for="tel">Cell Phone
                     <input type="tel" name="tel" id="tel" required>
                 </label>-->
-                <input type="submit" id="btnSubmit" name="btnSubmit" value="Make A Task" tabindex="900" class="button">
+                <input type="submit" id="btnSubmit" name="btnSubmit" value="Edit A Task" tabindex="900" class="button">
             </fieldset> <!-- ends buttons -->
         </form>
     <?php
 } // end body submit
 ?>
-</article>
+
 
     <?php
     include "footer.php";
