@@ -12,11 +12,11 @@ include "top.php";
 //
 // SECTION: 1 Initialize variables
 $update = false;
-$task = "";
-$details = "";
-$toDoDate = "";
-$category = "";
-$taskId = "";
+//$task = "";
+//$details = "";
+//$toDoDate = "";
+//$category = "";
+//$taskId = "";
 
 // SECTION: 1a.
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -145,9 +145,10 @@ if (isset($_POST["btnSubmit"])) {
 
         if ($update) {
             $query = 'UPDATE tblTasks SET ';
-        } else {
-            $query = 'INSERT INTO tblTasks SET ';
-        }
+        } 
+        //else {
+        //    $query = 'INSERT INTO tblTasks SET ';
+        //}
 
         $query .= 'fldTask = "' . $task . '", ';
         $query .= 'fldDescription = "' . $details . '", ';
@@ -158,9 +159,10 @@ if (isset($_POST["btnSubmit"])) {
             $data[] = $taskId;
 
             $results = $thisDatabase->update($query, $data);
-        } else {
-            $results = $thisDatabase->insert($query, $data);
-        }
+        } 
+        //else {
+        //    $results = $thisDatabase->insert($query, $data);
+        //}
 
         // all sql statements are done so lets commit to our changes
         /*
@@ -190,7 +192,7 @@ if (isset($_POST["btnSubmit"])) {
         if ($debug) {
             print $query;
         }
-
+        
 
         if ($debug) {
             print $query;

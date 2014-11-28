@@ -1,0 +1,567 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 31, 2014, 7:24:31 PM
+    Author     : kyliehearn
+*/
+
+
+/*  ---------------- General ------------------- */
+* {
+
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #25222A;
+}
+
+p {
+    text-indent: 3em;
+    font-family: "Courier New", Courier, monospace;
+}
+
+h1 {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    color: #EBE2B5;
+}
+
+h2 {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    color: #EBE2B5;
+}
+
+aside {
+    background-color: #fefdfb;
+    //#F8ECC2;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 80%;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+form {
+    background-color: #F9F6F7;
+}
+
+article {
+    margin: 20px;
+    padding: 10px;
+}
+
+/*  ---------------- Login Bar ------------------- */
+#login {
+
+}
+
+/*  ---------------- Header ------------------- */
+header {
+    text-align: center;
+}
+
+/*  ---------------- Nav ------------------- */
+@media screen and (min-width: 1201px) {
+
+    nav {
+        border: medium solid #A1E2FF;
+        background-color: #A1E2FF;
+        border-radius: 10px;
+    }
+
+    nav ul {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        text-align: center;
+    }
+
+    nav ul li {
+        display: inline-block;
+        margin-left: 20px;
+        margin-right: 20px;
+        list-style: none;
+    }
+
+    il {
+        display: inline-block;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    li a {
+        color: #E6E8FA;
+        text-decoration: underline;
+        padding: 10px;
+        border-color: #162252;
+        background-color: #162252;
+        border-radius: 10px;
+    }
+
+    li.activePage {
+        color: #162252;
+        text-decoration: underline;
+        padding: 10px;
+        border-color: #E6E8FA;
+        background-color: #E6E8FA;
+        border-radius: 10px;
+    }
+
+    li a:hover {
+        color: #162252;
+        text-decoration: underline;
+        padding: 10px;
+        border-color: #E6E8FA;
+        background-color: #E6E8FA;
+        border-radius: 10px;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 876px) {
+
+    nav {
+        border: medium solid #A1E2FF;
+        background-color: #A1E2FF;
+        border-radius: 10px;
+    }
+
+    nav ul {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        text-align: center;
+    }
+
+    nav ul li {
+        display: inline-block;
+        margin-left: 20px;
+        margin-right: 20px;
+        list-style: none;
+    }
+
+    il {
+        display: inline-block;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    li a {
+        color: #E6E8FA;
+        text-decoration: underline;
+        padding: 10px;
+        border-color: #162252;
+        background-color: #162252;
+        border-radius: 10px;
+    }
+
+    li.activePage {
+        color: #162252;
+        text-decoration: underline;
+        padding: 10px;
+        border-color: #E6E8FA;
+        background-color: #E6E8FA;
+        border-radius: 10px;
+    }
+
+    li a:hover {
+        color: #162252;
+        text-decoration: underline;
+        padding: 10px;
+        border-color: #E6E8FA;
+        background-color: #E6E8FA;
+        border-radius: 10px;
+    }
+}
+
+@media screen and (max-width: 875px) {
+    //and (min-width: 670px)
+    nav {
+        border: medium solid #A1E2FF;
+        background-color: #A1E2FF;
+        border-radius: 10px;
+    }
+
+    nav ul {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        text-align: center;
+    }
+
+    nav ul li {
+        display: inline-block;
+        margin-left: 5px;
+        margin-right: 5px;
+        list-style: none;
+    }
+
+    il {
+        display: inline-block;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    section.img img {
+        width: 80%;
+    }
+    li a {
+        color: #E6E8FA;
+        text-decoration: underline;
+        padding: 10px;
+        border-color: #162252;
+        background-color: #162252;
+        border-radius: 10px;
+    }
+
+    li.activePage {
+        color: #162252;
+        text-decoration: underline;
+        padding: 10px;
+        border-color: #E6E8FA;
+        background-color: #E6E8FA;
+        border-radius: 10px;
+    }
+
+    li a:hover {
+        color: #162252;
+        text-decoration: underline;
+        padding: 10px;
+        border-color: #E6E8FA;
+        background-color: #E6E8FA;
+        border-radius: 10px;
+    }
+}
+
+
+@media screen and (max-width: 669px) {
+
+    nav {
+        border: medium solid #A1E2FF;
+        background-color: #A1E2FF;
+        border-radius: 10px;
+    }
+
+    nav ul {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        text-align: center;
+    }
+
+    nav ul li {
+        display: inline-block;
+        margin-left: 1px;
+        margin-right: 1px;
+        list-style: none;
+    }
+
+    il {
+        display: inline-block;
+        margin-left: 1px;
+        margin-right: 1px;
+    }
+    li a {
+        color: #E6E8FA;
+        text-decoration: underline;
+        padding: 5px;
+        border-color: #162252;
+        background-color: #162252;
+        border-radius: 10px;
+    }
+
+    li.activePage {
+        color: #162252;
+        text-decoration: underline;
+        padding: 5px;
+        border-color: #E6E8FA;
+        background-color: #E6E8FA;
+        border-radius: 10px;
+    }
+
+    li a:hover {
+        color: #162252;
+        text-decoration: underline;
+        padding: 5px;
+        border-color: #E6E8FA;
+        background-color: #E6E8FA;
+        border-radius: 10px;
+    }
+
+}
+
+
+
+
+/*  ----------------  Home  ------------------- */
+#index {
+
+}
+
+section.img {
+    width: 100%;
+    background-color: #0C0C0E;
+}
+
+section.img img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+section.img iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+section.text {
+    background-color: #FCE7E6;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+/*  ----------------  Register  ------------------- */
+form#frmRegister {
+    background: -webkit-gradient(linear, bottom, left 175px, from(#CCCCCC), to(#EEEEEE));
+    background: -moz-linear-gradient(bottom, #CCCCCC, #EEEEEE, 175px);
+    margin:auto;
+    position:relative;
+    width:580px;
+
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 24px;
+    font-weight: bold;
+    color: #09C;
+    text-decoration: none;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding:10px;
+    border: 1px solid #999;
+    border: inset 1px solid #333;
+    -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+form#frmRegisterinput#txtfname, form#frmRegisterinput#txtlname, form#frmRegisterinput#txtEmail, form#frmRegisterinput#pwdPassword {
+    width:500px;
+    display:block;
+    border: 1px solid #999;
+    height: 25px;
+    -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+input.button {
+    width:auto;
+    right:20px;
+    bottom:20px;
+    background:#09C;
+    color:#fff;
+    font-family: Tahoma, Geneva, sans-serif;
+    height:30px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    border: 1px solid #999;
+    margin-top: 20px;
+    display: block;
+}
+
+input.button:hover {
+    background:#fff;
+    color:#09C;
+}
+
+input:focus {
+    border: 1px solid #09C;
+}
+
+/* ------- FORM -------- */
+#form article#main {
+    background-color:rgba(255, 255, 255, 0.8);
+}
+#form article#main{
+    float: none;
+    margin: auto; /* because of the fixed width this centers the form */
+    text-align: left;
+    max-width: 600px; /* not repsonive but fixed */
+
+}
+
+
+/* need to clear any floats that may exist */
+fieldset{
+    border: 1px solid #00498e;
+    clear: both;
+}
+/* just pushes content to left side of the box. */
+/*fieldset.search{
+    float: left;
+}*/
+/* when you look at the labels this pushes then next to the input and right
+aligns them. Display block means they are each on their own line. */
+
+fieldset.search select{
+    width: 25em; /* works with above to be the same size for the boxes */
+}
+
+fieldset.wrapper {
+    border: 0;
+    margin: auto;
+}
+fieldset.wrapper legend {
+    color: #00498e;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 10px;
+}
+fieldset.wrapper > legend {
+    /* i only want the first legend ie if it follows the class wrapper */
+    font-size: 2em;
+}
+label {
+    color: #005cb3;
+    display: block;
+    font-size: .9em;
+    font-weight: bold;
+    margin-top: 10px;
+}
+/* style the errors in the form so they are visible */
+.mistake {
+    color: #fff;
+    background-color:#800;
+    border: thin solid #000;
+}
+/* style the list of errors that will show before the form */
+#errors ol li{
+    color: #ff5555;
+}
+
+
+/*  ----------------  Profile  ------------------- */
+#profile {
+
+}
+
+ol {
+    list-style: none;
+}
+
+ol li tr td {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+li.tasks {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #FDEBE7;
+}
+
+.date {
+    font-style: italic;
+}
+
+/*  ----------------  Manage Tasks  ------------------- */
+#manage_task {
+
+}
+
+/*  ----------------  Random Task  ------------------- */
+#random_task {
+
+}
+
+/*  ----------------  About Us  ------------------- */
+#about_us article {
+    margin-right: 20px;
+}
+
+/*  ----------------  Forms  ------------------- */
+
+
+
+/*  ----------------  Calander  ------------------- */
+
+table {
+
+}
+
+tr {
+
+}
+
+tr th {
+
+}
+
+th {
+    //    padding-left: 20px;
+    //    padding-right: 20px;
+}
+
+tr td {
+
+}
+
+td {
+
+}
+
+th, td {
+    //    border: solid;
+    //    border-color: #000;
+    //    border-width: 2px;
+    //    border-style: inset;
+    //    width: 50px;
+    //    padding: 10px;
+}
+
+/*  ----------------  Images  ------------------- */
+img.us {
+    border-radius: 100%;
+    display: block;
+    width: 200px;
+    height: 200px;
+    float: right;
+    position: relative;
+    margin-top: 20px;
+}
+
+
+/*  ----------------  Footer  ------------------- */
+footer {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    background-color: #270D26;
+    //    background-color: #162252;
+    width: 100%;
+    color: #E6E8FA;
+    text-align: center;
+    padding-left: auto;
+    padding-right: auto;
+    display: inline-block;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+/*
+footer p {
+    text-align: center;
+    padding-left: auto;
+    padding-right: auto;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+*/
