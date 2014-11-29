@@ -35,26 +35,20 @@ include "include/nav.php";
   ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
  */
 
-require_once('../bin/myDatabase.php');
-$dbUserName = 'khearn_writer';
-$whichPass = "w"; //flag for which one to use.
-$dbName = 'KHEARN_RANDOM_TASK';
-$thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 
-$yourURL = $domain . $phpSelf;
-
+/*
 $task = "";
 $details = "";
 $toDoDate = "";
 $category = "";
 $taskId = "";
-
+*/
 
   if (isset($_GET["pmkTaskId"])) {
   $taskId = htmlentities($_GET["pmkTaskId"], ENT_QUOTES, "UTF-8");
 
   $query = 'SELECT fldTask, fldDescription, fldToDoDate ';
-  $query .= 'FROM tblTasks WHERE pmkTaskId = ?';
+  $query .= 'FROM tblTasks WHERE pmkTaskId = "'.$taskId.'" ';
 
   $results = $thisDatabase->select($query, array($taskId));
 
@@ -68,6 +62,13 @@ $taskId = "";
   $toDoDate = "";
   }
  
+  require_once('../bin/myDatabase.php');
+$dbUserName = 'khearn_writer';
+$whichPass = "w"; //flag for which one to use.
+$dbName = 'KHEARN_RANDOM_TASK';
+$thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
+
+$yourURL = $domain . $phpSelf;
 
 $taskERROR = false;
 $toDoDateERROR = false;

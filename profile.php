@@ -125,37 +125,12 @@ print "</article>";
  */
         ?>
 
-        <!-- I literally have no idea what I am doing. -->
-        <?php
-/*
-        function __toString() {
-            // The string we return is outputted by the echo statement
-            return '
-			<li id="todo' . $this->data['pmkTaskId'] . '" class="todo">
-			
-				<div class="text">' . $this->data['fldTask'] . '</div>
-				
-				<div class="actions">
-					<a href="#" class="edit">Edit</a>
-					<a href="#" class="delete">Delete</a>
-				</div>
-				
-				<div class="text">' . $this->data['fldToDoDate'] . '</div>
-				
-				<div class="actions">
-					<a href="#" class="edit">Edit</a>
-					<a href="#" class="delete">Delete</a>
-				</div>
-				
-			</li>';
-        }
- * 
- */
         
-        
+<?php        
     include 'cal/default.php';
-        ?>
-      
+    //or??
+    ?>
+        
         
         
     </aside>

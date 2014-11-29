@@ -125,7 +125,7 @@ header {
 @media screen and (max-width: 1200px) and (min-width: 876px) {
 
     nav {
-        border: medium solid #A1E2FF;
+        border: solid;
         background-color: #A1E2FF;
         border-radius: 10px;
     }
@@ -178,7 +178,6 @@ header {
 }
 
 @media screen and (max-width: 875px) {
-    //and (min-width: 670px)
     nav {
         border: medium solid #A1E2FF;
         background-color: #A1E2FF;
@@ -205,9 +204,10 @@ header {
         margin-right: 5px;
     }
 
-    section.img img {
+    section.img img, section.img iframe {
         width: 80%;
     }
+    
     li a {
         color: #E6E8FA;
         text-decoration: underline;
@@ -238,7 +238,6 @@ header {
 
 
 @media screen and (max-width: 669px) {
-
     nav {
         border: medium solid #A1E2FF;
         background-color: #A1E2FF;
@@ -264,6 +263,11 @@ header {
         margin-left: 1px;
         margin-right: 1px;
     }
+    
+    section.img img, section.img iframe {
+        width: 80%;
+    }
+    
     li a {
         color: #E6E8FA;
         text-decoration: underline;
@@ -317,6 +321,7 @@ section.img iframe {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    width: 100%;
 }
 
 section.text {
@@ -325,7 +330,22 @@ section.text {
     border-radius: 10px;
 }
 
+.text table, .text tr, .text td {
+    border: none;
+    
+}
 
+.text table .words {
+    padding-left: 10px;
+    padding-right: 10px;
+    text-indent: 3em;
+    font-family: "Courier New", Courier, monospace;
+}
+
+.text img {
+    border-radius: 5px;
+    border: 1px #000 solid;
+}
 /*  ----------------  Register  ------------------- */
 form#frmRegister {
     background: -webkit-gradient(linear, bottom, left 175px, from(#CCCCCC), to(#EEEEEE));
@@ -479,9 +499,23 @@ li.tasks {
 }
 
 /*  ----------------  Random Task  ------------------- */
-#random_task {
-
+#random_task ol.all {
+    list-style-type: circle;
+    font-family: "Courier New", Courier, monospace;
 }
+
+#random_task li.random {
+    margin-bottom: 5px;
+}
+
+#random_task li.random:nth-child(even) {
+    color: #00498e;
+}
+
+#random_task li.random:nth-child(odd) {
+    color: #666;
+}
+
 
 /*  ----------------  About Us  ------------------- */
 #about_us article {

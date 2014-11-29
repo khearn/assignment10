@@ -10,8 +10,7 @@
  * Written By: Robert Erickson robert.erickson@uvm.edu
  * Last updated on: October 17, 2014
  * 
- */ ?>
-<?php
+ */ 
 include "top.php";
 
 print '<article id="main">';
