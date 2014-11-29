@@ -28,15 +28,12 @@ include "include/nav.php";
   PRIMARY KEY (fnkEmail, fnkCategoryId, fnkTaskId)
   ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
   CREATE TABLE IF NOT EXISTS tblCategories (
   pmkCategoryId int(11) NOT NULL AUTO_INCREMENT,
   fldCategory varchar(500) NOT NULL,
   PRIMARY KEY (pmkCategoryId)
   ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
  */
-
-
 
 require_once('../bin/myDatabase.php');
 $dbUserName = 'khearn_writer';
@@ -51,6 +48,26 @@ $details = "";
 $toDoDate = "";
 $category = "";
 $taskId = "";
+
+
+  if (isset($_GET["pmkTaskId"])) {
+  $taskId = htmlentities($_GET["pmkTaskId"], ENT_QUOTES, "UTF-8");
+
+  $query = 'SELECT fldTask, fldDescription, fldToDoDate ';
+  $query .= 'FROM tblTasks WHERE pmkTaskId = ?';
+
+  $results = $thisDatabase->select($query, array($taskId));
+
+  $task = $results[0]["fldTask"];
+  $details = $results[0]["fldDescription"];
+  $toDoDate = $results[0]["fldToDoDate"];
+  } else {
+  $taskId = -1;
+  $task = "";
+  $details = "";
+  $toDoDate = "";
+  }
+ 
 
 $taskERROR = false;
 $toDoDateERROR = false;
@@ -80,6 +97,12 @@ if (isset($_POST["btnSubmit"])) {
     }
 
     //sanitize
+    $taskId = htmlentities($_POST["hidTaskId"], ENT_QUOTES, "UTF-8");
+    if ($taskId > 0) {
+        $update = true;
+    }
+    // I am not putting the ID in the $data array at this time
+
     $task = htmlentities($_POST["txtTask"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $task;
     $details = htmlentities($_POST["txtDetails"], ENT_QUOTES, "UTF-8");
@@ -125,23 +148,49 @@ if (isset($_POST["btnSubmit"])) {
             print "<p>Form is valid</p>";
 //M/D/Y --> Y-M-D
 
-        /*$query = "INSERT INTO tblTasks "
-                . "JOIN tblRelationship ON pmkTaskId=fnkTaskId "
-                . "JOIN tblCategories ON pmkCategoryId=fnkCategoryId "
-                . "(fldTask, fldDescription, fldToDoDate, fldCategory, fnkEmail) "
-                . "VALUES ('" . $task . "', '" . $details . "', '" . $toDoDate . "', '" . $category . "', 'khearn@uvm.edu')";
+        /* $query = "INSERT INTO tblTasks "
+          . "JOIN tblRelationship ON pmkTaskId=fnkTaskId "
+          . "JOIN tblCategories ON pmkCategoryId=fnkCategoryId "
+          . "(fldTask, fldDescription, fldToDoDate, fldCategory, fnkEmail) "
+          . "VALUES ('" . $task . "', '" . $details . "', '" . $toDoDate . "', '" . $category . "', 'khearn@uvm.edu')";
          * 
          */
-        $query = "INSERT INTO tblTasks (fldTask, fldDescription, fldToDoDate, fnkEmail, pmkTaskId) VALUES ('" . $task . "', '" . $details . "', '" . $toDoDate . "', 'khearn@uvm.edu', '" . $taskId . "')";
-        $query = "INSERT INTO tblRelationship (fnkCategoryId, fnkTaskId, fnkEmail) VALUES ('" . $catId . "', '" . $taskId . "', 'khearn@uvm.edu')";
-        //$query = "SELECT tblCategories (pmkCategoryId, fldCategory) VALUES ('".$catId."', '".$category."')";
+
+        if ($update) {
+            $query = 'UPDATE tblTasks SET ';
+        } else {
+            $query = 'INSERT INTO tblTasks SET ';
+        }
+
+        $query .= 'fldTask = ? ';
+        $query .= 'fldDescription = ? ';
+        $query .= 'fldToDoDate = ? ';
+        $query .= 'fnkEmail = "khearn@uvm.edu" ';
+        $query .= 'pmkTaskId = "' . $taskId . '" ';
 
         $data = array($task);
         $data[] = $details;
         $data[] = $toDoDate;
-        $data[] = $category;
         $data[] = $taskId;
+        $data[] = $email;
+
+
+        $records = $thisDatabase->insert($query, $data);
+
+        if ($update) {
+            $query = 'UPDATE tblRelationship SET ';
+        } else {
+            $query = 'INSERT INTO tblRelationship SET ';
+        }
+
+        $query .= 'fnkCategoryId = "' . $catId . '" ';
+        $query .= 'fnkTaskId = "' . $taskId . '" ';
+        $query .= 'fnkEmail = "khearn@uvm.edu" ';
+
+
+        $data = array($category);
         $data[] = $catId;
+        $data[] = $email;
 
         $records = $thisDatabase->insert($query, $data);
     }
@@ -152,30 +201,41 @@ if (isset($_POST["btnSubmit"])) {
     <h2>Create a Task</h2>
 
     <?php
-    if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) {
-        print "<h1>Your Task has ";
-        if (!$mailed) {
-            print "not ";
-        }
-        print "been saved</h1>";
-
-        if (!$mailed) {
-            print "not ";
-        }
-        print "been saved</p>";
+    if ($dataEntered) { // closing of if marked with: end body submit
+        print "<h1>Record Saved</h1> ";
+        print "<p>Return to your <a href='profile.php'>Task List</a></p>";
     } else {
+//####################################
+//
+// SECTION 3b Error Messages
+//
+// display any error messages before we print out the form
+        if ($errorMsg) {
+            print '<div id="errors">';
+            print "<ol>\n";
+            foreach ($errorMsg as $err) {
+                print "<li>" . $err . "</li>\n";
+            }
+            print "</ol>\n";
+            print '</div>';
+        }
         ?>
 
         <form action="/cs148/assignment10/manage_task.php"
               method="post"
               id="frmRegister">
             <fieldset id="Make-a-Task">
+
+                <input type="hidden" id="pmkTaskId" name="hidTaskId"
+                       value="<?php print $taskId; ?>"
+                       >
+
                 <label for="lstCategory">Category
                     <select id="lstCategory"
                             name="lstCategory"
                             tabindex="100" >
                                 <?php
-//creating list query
+                                //creating list query
                                 $query = "SELECT DISTINCT fldCategory ";
                                 $query .= "FROM tblCategories ";
                                 $query .= "ORDER BY fldCategory";
@@ -218,8 +278,8 @@ if (isset($_POST["btnSubmit"])) {
     </article>
 
     <?php
-    }
-    ?>
+}
+?>
 
 <?php
 include ('include/footer.php');

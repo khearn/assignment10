@@ -34,32 +34,9 @@ include "include/nav.php";
         $path_parts = pathinfo($phpSelf);
         print '<body id="' . $path_parts['filename'] . '">';
 
-
-        /* ##### Step two 
-         * 
-         * open the file that contains the query
-
-         */
-        //$myfile = fopen("q01.sql", "r") or die("Unable to open file!");
-        //$query = "SELECT fldTask as Task, fldToDoDate as Date FROM tblTasks ORDER BY fldToDoDate ASC";
-
-        //$date_query = "SELECT fldToDoDate, fldTask FROM tblTasks ORDER BY fldToDoDate ASC";
-        //$task_query = "SELECT fldTask FROM tblTasks WHERE fldToDoDate='" . $date_query . "'";
-        /* ##### Step three
-         * Execute the query
-
-         *      */
-        //$results = $thisDatabase->select($query);
-
-
-        /* ##### Step four
-         * prepare output and loop through array
-
-         *      */
-        //$numberRecords = count($results);
-
-        $admin = true;
-
+        // ##### Step two 
+        // ##### Step three
+        // ##### Step four
 
 print "<article>";
 // %^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -70,7 +47,7 @@ $query  = "SELECT fldTask, fldDescription, fldToDoDate ";
 $query .= "FROM tblTasks " . $orderBy;
 
 if ($debug)
-    print "<p>sql " . $query;
+    print "<p>sql" . $query;
 
 $dates = $thisDatabase->select($query);
 
@@ -88,16 +65,16 @@ foreach ($dates as $date) {
 
     print "<li class='tasks'>";
 
-    if ($admin) {
+    //if ($admin) {
     print "<table>";
         print "<tr>";
         print "<td>";
-            print '<a href="edit.php?id=' . $date["pmkTaskId"] . '">[Edit]</a> ';
+            print '<a href="manage_task.php?id=' . $date["pmkTaskId"] . '">[Edit]</a> ';
         print "</td>";
         print "<td>";
             print '<a href="delete.php?id=' . $date["pmkTaskId"] . '">[Delete]</a> ';
         print "</td>";
-    }
+    //}
         print "<td>";
             print "<div class='date'>" . $date['fldToDoDate'] . "</div>";
         print "</td>";

@@ -7,7 +7,9 @@
  *
  */
 
-include "top.php";
+include "include/top.php";
+include "include/header.php";
+include 'include/nav.php';
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1 Initialize variables
@@ -46,6 +48,9 @@ if (isset($_GET["pmkTaskId"])) {
     $toDoDate = $results[0]["fldToDoDate"];
 } else {
     $taskId = -1;
+    $task = "";
+    $details = "";
+    $toDoDate = "";
 }
 
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -54,10 +59,10 @@ if (isset($_GET["pmkTaskId"])) {
 //
 // Initialize Error Flags one for each form element we validate
 // in the order they appear in section 1c.
+$taskIdERROR = false;
 $taskERROR = false;
-$toDoDateERROR = false;
 $detailsERROR = false;
-$categoryERROR = false;
+$toDoDateERROR = false;
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1e misc variables
@@ -76,11 +81,13 @@ if (isset($_POST["btnSubmit"])) {
 //
 // SECTION: 2a Security
 //
-    /*    if (!securityCheck(true)) {
+    /*
+    if (!securityCheck(true)) {
       $msg = "<p>Sorry you cannot access this page. ";
       $msg.= "Security breach detected and reported</p>";
       die($msg);
       }
+     * 
      */
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //
@@ -140,19 +147,53 @@ if (isset($_POST["btnSubmit"])) {
 //
 // SECTION: 2e Save Data
 //
+        /*
+        $dataEntered = false;
+        try {
+            $thisDatabase->db->beginTransaction();
+            
+        $query  = 'UPDATE tblTasks SET ';
+        $query .= 'fldTask = ?, ';
+        $query .= 'fldDescription = ?, ';
+        $query .= 'fldToDoDate = ?, ';
+          
+            if ($debug) {
+                print "<p>sql " . $query;
+                print"<p><pre>";
+                print_r($data);
+                print"</pre></p>";
+            }
+            $results = $thisDatabase->insert($query, $data);
 
+            $primaryKey = $thisDatabase->lastInsert();
+            if ($debug){
+                print "<p>pmkTaskId= " . $primaryKey;
+            }
+// all sql statements are done so lets commit to our changes
+            $dataEntered = $thisDatabase->db->commit();
+            
+            if ($debug)
+                print "<p>transaction complete ";
+        } catch (PDOExecption $e) {
+            $thisDatabase->db->rollback();
+            if ($debug)
+                print "Error!: " . $e->getMessage() . "</br>";
+            $errorMsg[] = "There was a problem with accpeting your data please contact us directly.";
+        } 
+        */
+        
         $dataEntered = false;
 
         if ($update) {
             $query = 'UPDATE tblTasks SET ';
         } 
-        //else {
-        //    $query = 'INSERT INTO tblTasks SET ';
-        //}
+        else {
+            $query = 'INSERT INTO tblTasks SET ';
+        }
 
-        $query .= 'fldTask = "' . $task . '", ';
-        $query .= 'fldDescription = "' . $details . '", ';
-        $query .= 'fldToDoDate = "' . $date . '" ';
+        $query .= 'fldTask = ? ';
+        $query .= 'fldDescription = ? ';
+        $query .= 'fldToDoDate = ? ';
 
         if ($update) {
             $query .= 'WHERE pmkTaskId = ?';
@@ -170,7 +211,7 @@ if (isset($_POST["btnSubmit"])) {
           $user =  "mljoy_admin";
           $myPassword = "TwV28wTWrWZz95vk";
           $dataBase = "MLJOY_RANDOM_TASK";
-         */
+        */
         $server = "webdb.uvm.edu";
         $user = "khearn_admin";
         $myPassword = "NetWt24oz";
@@ -198,14 +239,13 @@ if (isset($_POST["btnSubmit"])) {
             print $query;
         }
 
-
-        /* $records = $thisDatabase->db->insert($query); */
-
+       // $records = $thisDatabase->db->insert($query); 
         if ($debug) {
             print "<div>" . count($records) . " records created.</div>";
             print_r($data);
         }
         $firstTime = true;
+        
     } // end form is valid
 } // ends if form was submitted.
 //#############################################################################
@@ -218,9 +258,6 @@ if (isset($_POST["btnSubmit"])) {
 //####################################
 //
 // SECTION 3a.
-//
-//
-//
 //
 // If its the first time coming to the form or there are errors we are going
 // to display the form.
@@ -246,17 +283,8 @@ if ($dataEntered) { // closing of if marked with: end body submit
 //
 // SECTION 3c html Form
 //
-    /* Display the HTML form. note that the action is to this same page. $phpSelf
-      is defined in top.php
-      NOTE the line:
-      value="<?php print $email; ?>
-      this makes the form sticky by displaying either the initial default value (line 35)
-      or the value they typed in (line 84)
-      NOTE this line:
-      <?php if($emailERROR) print 'class="mistake"'; ?>
-      this prints out a css class so that we can highlight the background etc. to
-      make it stand out that a mistake happened here.
-     */
+// Display the HTML form. note that the action is to this same page. $phpSelf is defined in top.php NOTE the line: value="<?php print $email; ?> this makes the form sticky by displaying either the initial default value (line 35) or the value they typed in (line 84) NOTE this line: <?php if($emailERROR) print 'class="mistake"'; ?> this prints out a css class so that we can highlight the background etc. to make it stand out that a mistake happened here.
+
     ?>
         <form action="<?php print $phpSelf; ?>"
               method="post"

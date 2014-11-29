@@ -23,7 +23,7 @@
         <link rel="stylesheet" href="/resources/demos/style.css">
         <script>
             $(function () {
-                $("#datepicker").datepicker();
+                $("#datepicker").datepicker({dateFormat: "yy-mm-dd"});
             });
         </script>
 
@@ -60,7 +60,7 @@
         //if (($path_parts['filename'] == "register") OR ($path_parts['filename'] == "manage_task") OR ($path_parts['filename'] == "login/login")) {
         require "lib/validation-functions.php";
         require "lib/mail-message.php";
-        include "cookie.php";
+        //include "cookie.php";
         //}
         ?>	
 
