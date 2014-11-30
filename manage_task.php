@@ -37,36 +37,38 @@ include "include/nav.php";
 
 
 /*
-$task = "";
-$details = "";
-$toDoDate = "";
-$category = "";
-$taskId = "";
-*/
-
-  if (isset($_GET["pmkTaskId"])) {
-  $taskId = htmlentities($_GET["pmkTaskId"], ENT_QUOTES, "UTF-8");
-
-  $query = 'SELECT fldTask, fldDescription, fldToDoDate ';
-  $query .= 'FROM tblTasks WHERE pmkTaskId = "'.$taskId.'" ';
-
-  $results = $thisDatabase->select($query, array($taskId));
-
-  $task = $results[0]["fldTask"];
-  $details = $results[0]["fldDescription"];
-  $toDoDate = $results[0]["fldToDoDate"];
-  } else {
-  $taskId = -1;
   $task = "";
   $details = "";
   $toDoDate = "";
-  }
- 
-  require_once('../bin/myDatabase.php');
+  $category = "";
+  $taskId = "";
+ */
+
+require_once('../bin/myDatabase.php');
 $dbUserName = 'khearn_writer';
 $whichPass = "w"; //flag for which one to use.
 $dbName = 'KHEARN_RANDOM_TASK';
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
+
+if (isset($_GET["pmkTaskId"])) {
+    $taskId = htmlentities($_GET["pmkTaskId"], ENT_QUOTES, "UTF-8");
+
+    $query = 'SELECT fldTask, fldDescription, fldToDoDate ';
+    $query .= 'FROM tblTasks WHERE pmkTaskId = "' . $taskId . '" ';
+
+    $results = $thisDatabase->select($query, array($taskId));
+
+    $task = $results[0]["fldTask"];
+    $details = $results[0]["fldDescription"];
+    $toDoDate = $results[0]["fldToDoDate"];
+} else {
+    $taskId = -1;
+    $task = "";
+    $details = "";
+    $toDoDate = "";
+}
+
+//moved ^
 
 $yourURL = $domain . $phpSelf;
 
@@ -83,7 +85,7 @@ $mailed = false;
 if (isset($_POST["btnSubmit"])) {
 
 
-    $debug = true;
+    $debug = false;
     if (isset($_GET["debug"])) { // ONLY do this in a classroom environment
         $debug = true;
     }
