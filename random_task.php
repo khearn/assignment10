@@ -21,15 +21,15 @@ include "include/nav.php";
             print "<p>DEBUG MODE IS ON</p>";
 
         require_once('../bin/myDatabase.php');
-        /*
+        
           $dbUserName = 'mljoy_writer';
           $whichPass = "w"; //flag for which one to use.
-          $dbName = 'MLJOY_RANDOM_TASK';
-         */
-        $dbUserName = 'khearn_writer';
+          $dbName = 'MLJOY_RANDOM_TASK'; 
+         
+        /*$dbUserName = 'khearn_writer';
         $whichPass = "w"; //flag for which one to use.
-        $dbName = 'KHEARN_RANDOM_TASK';
-        $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
+        $dbName = 'KHEARN_RANDOM_TASK'; */
+        $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName); 
 
 
 
@@ -81,15 +81,15 @@ include "include/nav.php";
             print "<p>DEBUG MODE IS ON</p>";
 
         require_once('../bin/myDatabase.php');
-        /*
+        
           $dbUserName = 'mljoy_writer';
           $whichPass = "w"; //flag for which one to use.
-          $dbName = 'MLJOY_RANDOM_TASK';
-         */
-        $dbUserName = 'khearn_writer';
+          $dbName = 'MLJOY_RANDOM_TASK'; 
+         
+       /*$dbUserName = 'khearn_writer';
         $whichPass = "w"; //flag for which one to use.
-        $dbName = 'KHEARN_RANDOM_TASK';
-        $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
+        $dbName = 'KHEARN_RANDOM_TASK'; */
+        $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName); 
 
         $randomTask = "";
         $comments = "";
@@ -113,16 +113,16 @@ include "include/nav.php";
 
             $query = "INSERT INTO tblRandomTask (pmkRandomTaskId, fldRandomTask, fldDescription) VALUES ('" . $taskId . "', '" . $randomTask . "', '" . $comments . "')";
 
-            /*
+            
               $server = "webdb.uvm.edu";
               $user =  "mljoy_admin";
               $myPassword = "TwV28wTWrWZz95vk";
-              $dataBase = "MLJOY_RANDOM_TASK";
-             */
-            $server = "webdb.uvm.edu";
+              $dataBase = "MLJOY_RANDOM_TASK"; 
+             
+            /*$server = "webdb.uvm.edu";
             $user = "khearn_admin";
             $myPassword = "NetWt24oz";
-            $dataBase = "KHEARN_RANDOM_TASK";
+            $dataBase = "KHEARN_RANDOM_TASK"; */
 
             $connect = mysqli_connect($server, $user, $myPassword, $dataBase);
 
@@ -214,8 +214,9 @@ include "include/nav.php";
                         print "<li>" . $err . "</li>\n";
                     }
                     print "</ol>\n";
-                    print '</div>';
+                    print '</div>';}
                 }
+            
                 ?>
 
 
@@ -248,7 +249,7 @@ include "include/nav.php";
     </article>
 
     <?php
-}
+
 include ('include/footer.php');
 ?>
 
