@@ -16,9 +16,15 @@ if ($debug)
     print "<p>DEBUG MODE IS ON</p>";
 
 require_once('../bin/myDatabase.php');
-$dbUserName = 'mljoy_writer';
+
+/*$dbUserName = 'mljoy_writer';
 $whichPass = "w"; //flag for which one to use.
-$dbName = 'MLJOY_RANDOM_TASK';
+$dbName = 'MLJOY_RANDOM_TASK';*/
+
+$dbUserName = 'khearn_writer';
+$whichPass = "w"; //flag for which one to use.
+$dbName = 'KHEARN_RANDOM_TASK'; 
+
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
@@ -63,10 +69,16 @@ if (isset($_POST["btnSubmit"])) {
 
 	$query = "SELECT pmkEmail, fldPassword FROM tblUser";
 
-	$server = "webdb.uvm.edu";
+/*
+        $server = "webdb.uvm.edu";
 	$user =  "mljoy_admin";
 	$myPassword = "TwV28wTWrWZz95vk";
-	$dataBase = "MLJOY_RANDOM_TASK";
+	$dataBase = "MLJOY_RANDOM_TASK";*/
+
+	$server = "webdb.uvm.edu";
+	$user =  "khearn_admin";
+	$myPassword = "NetWt24oz";
+	$dataBase = "KHEARN_RANDOM_TASK"; 
 
 	
 	$connect = mysqli_connect($server, $user, $myPassword, $dataBase);
@@ -243,7 +255,8 @@ if (isset($_POST["btnSubmit"])) {
 // If its the first time coming to the form or there are errors we are going
 // to display the form.
 if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked with: end body submit
-	$handle = fopen("http://www.mljoy.w3.uvm.edu/assignment10/checklogin.php");
+	//$handle = fopen("http://www.mljoy.w3.uvm.edu/assignment10/checklogin.php");
+        $handle = fopen("http://www.khearn.w3.uvm.edu/assignment10/checklogin.php");
     //print "<h1> Congratulations! You should receive a confirmation email shortly. </h1>";
 } else {
     //####################################

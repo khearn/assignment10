@@ -41,9 +41,15 @@ if ($count == 1) {
 <?php
 
 require_once('../bin/myDatabase.php');
-$dbUserName = 'mljoy_admin';
-$whichPass = "a"; //flag for which one to use.
-$dbName = 'MLJOY_RANDOM_TASK';
+
+/*$dbUserName = 'mljoy_writer';
+$whichPass = "w"; //flag for which one to use.
+$dbName = 'MLJOY_RANDOM_TASK';*/
+
+$dbUserName = 'khearn_writer';
+$whichPass = "w"; //flag for which one to use.
+$dbName = 'KHEARN_RANDOM_TASK'; 
+
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 
 // username and password sent from form 
