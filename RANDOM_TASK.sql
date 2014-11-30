@@ -7,6 +7,9 @@ CREATE TABLE IF NOT EXISTS tblUsers (
     fldDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 /*    fldGender char(1) DEFAULT 'F', ---  dont use this row for now! */
     fldHash tinyint(1) NOT NULL DEFAULT '0',
+    fldLinkCheck int(1) NOT NULL,
+    fldApprove text NUll,
+    fldApproveCheck NULL,
     PRIMARY KEY (pmkUsername),
     UNIQUE KEY (pmkEmail),
     UNIQUE KEY (pmkUsername)
@@ -30,15 +33,6 @@ CREATE TABLE IF NOT EXISTS tblPicture (
     PRIMARY KEY (pmkPictureId)
 )
 
-CREATE TABLE `file` (
-    `id`        Int Unsigned Not Null Auto_Increment,
-    `name`      VarChar(255) Not Null Default 'Untitled.txt',
-    `mime`      VarChar(50) Not Null Default 'text/plain',
-    `size`      BigInt Unsigned Not Null Default 0,
-    `data`      MediumBlob Not Null,
-    `created`   DateTime Not Null,
-    PRIMARY KEY (`id`)
-)
 /* or this table
 CREATE TABLE IF NOT EXISTS tblDemographics (
     fnkEmail varchar(320) NOT NULL,
