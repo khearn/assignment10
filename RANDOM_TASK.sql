@@ -7,6 +7,9 @@ CREATE TABLE IF NOT EXISTS tblUsers (
     fldDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 /*    fldGender char(1) DEFAULT 'F', ---  dont use this row for now! */
     fldHash tinyint(1) NOT NULL DEFAULT '0',
+    fldLinkCheck int(1) NOT NULL,
+    fldApprove text NUll,
+    fldApproveCheck NULL,
     PRIMARY KEY (pmkUsername),
     UNIQUE KEY (pmkEmail),
     UNIQUE KEY (pmkUsername)
