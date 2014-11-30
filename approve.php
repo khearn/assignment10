@@ -22,14 +22,13 @@ print '<article id="main">';
 //connect to database
 require_once('../bin/myDatabase.php');
 
-    /*
 $dbUserName = 'mljoy_writer';
 $whichPass = "w"; //flag for which one to use.
 $dbName = 'MLJOY_RANDOM_TASK';
- */
-$dbUserName = 'khearn_writer';
+ 
+/*$dbUserName = 'khearn_writer';
 $whichPass = "w"; //flag for which one to use.
-$dbName = 'KHEARN_RANDOM_TASK';
+$dbName = 'KHEARN_RANDOM_TASK'; */
 
 	$thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 	
@@ -106,8 +105,8 @@ foreach ($results as $row) {
     }
     
 
-//$message = "An administrator has verified your account. Copy this address into your address bar to get started! https://mljoy.w3.uvm.edu/cs148/assignment10/manage_task.php";
-$message = "An administrator has verified your account. Copy this address into your address bar to get started! https://khearn.w3.uvm.edu/cs148/assignment10/manage_task.php";
+$message = "An administrator has verified your account. Copy this address into your address bar to get started! https://mljoy.w3.uvm.edu/cs148/assignment10/manage_task.php";
+//$message = "An administrator has verified your account. Copy this address into your address bar to get started! https://khearn.w3.uvm.edu/cs148/assignment10/manage_task.php";
 
 $subject = "User Approval";
 $to = "$value";

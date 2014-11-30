@@ -16,15 +16,15 @@ if ($debug)
     print "<p>DEBUG MODE IS ON</p>";
 
 require_once('../bin/myDatabase.php');
-/*
+
 $dbUserName = 'mljoy_writer';
 $whichPass = "w"; //flag for which one to use.
 $dbName = 'MLJOY_RANDOM_TASK';
- */
-$dbUserName = 'khearn_writer';
+ 
+/*$dbUserName = 'khearn_writer';
 $whichPass = "w"; //flag for which one to use.
 $dbName = 'KHEARN_RANDOM_TASK';
-$thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
+$thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName); */
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1b Security
@@ -100,21 +100,21 @@ fclose($fp);
     
     
     //without picture.
-    $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldFirstName, fldLastName, fldDate, fldHash) VALUES ('" . $email . "', '" . $username . "', '" . $hash . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
+    $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldFirstName, fldLastName, fldDate, fldHash) VALUES ('" . $email . "', '" . $username . "', '" . $password . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $hash . "')";
      
     //With Picture
     $query = "INSERT INTO tblPicture(fnkUsername, fldPicture) VALUES ('".$username."', '".$pic."') ";
     
-/*
+
         $server = "webdb.uvm.edu";
 	$user =  "mljoy_admin";
 	$myPassword = "TwV28wTWrWZz95vk";
 	$dataBase = "MLJOY_RANDOM_TASK";
-*/
+/*
 	$server = "webdb.uvm.edu";
 	$user =  "khearn_admin";
 	$myPassword = "NetWt24oz";
-	$dataBase = "KHEARN_RANDOM_TASK";
+	$dataBase = "KHEARN_RANDOM_TASK"; */
 	
 	$connect = mysqli_connect($server, $user, $myPassword, $dataBase);
 	
@@ -301,8 +301,8 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
             // to the person filling out the form (section 2g).
             //?q means there will be a variable afterwards. 
             $message = 'Welcome! Please click this link to confirm.';
-            //$message .= " https://mljoy.w3.uvm.edu/cs148/assignment10/confirm.php?q=";
-            $message .= " https://khearn.w3.uvm.edu/cs148/assignment10/confirm.php?q=";
+            $message .= " https://mljoy.w3.uvm.edu/cs148/assignment10/confirm.php?q=";
+            //$message .= " https://khearn.w3.uvm.edu/cs148/assignment10/confirm.php?q=";
             $message .= $confirm;
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
             //
