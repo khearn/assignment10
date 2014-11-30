@@ -47,7 +47,7 @@ $date = date("Y-m-d-H-i-s");
 $hash = "";
 $confirm = "";
 $headers = "";
-//$pic = "";
+$pic = "";
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1d form error flags
@@ -76,6 +76,7 @@ $mailed = false; // have we mailed the information to the user?
 //
 //
 if (isset($_POST["btnSubmit"])) {
+    if (isset($_FILES['image']) && $_FILES['fileToUpload']['size'] > 0) {
         
     $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
     $username = htmlentities($_POST["txtUsername"], ENT_QUOTES, "UTF-8");
@@ -84,16 +85,25 @@ if (isset($_POST["btnSubmit"])) {
     $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
     $confirm = sha1($email);
     $hash = sha1($password);
-    //$pic = file_get_contents($_FILES['fileToUpload']['name']);
+    $pic = file_get_contents($_FILES['fileToUpload']['name']);
     //$approved = sha1($confirm);
     // add gender later
     // 
+    
+    // Read the file
+
+$fp = fopen($pic, 'r');
+$data = fread($fp, filesize($pic));
+$data = addslashes($data);
+fclose($fp);
+
+    
     
     //without picture.
     $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldFirstName, fldLastName, fldDate, fldHash) VALUES ('" . $email . "', '" . $username . "', '" . $hash . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $confirm . "')";
      
     //With Picture
- //   $query = "INSERT INTO tblPicture(fnkUsername, fldPicture) VALUES ('".$username."', '".$pic."') ";
+    $query = "INSERT INTO tblPicture(fnkUsername, fldPicture) VALUES ('".$username."', '".$pic."') ";
     
 /*
         $server = "webdb.uvm.edu";
@@ -308,7 +318,7 @@ $query = "SELECT pmkEmail FROM tblUsers WHERE pmkEmail = '" . $email . "' ";
         $todaysDate = strftime("%x");
         $subject = "Welcome to the Random Task: " . $todaysDate;
         mail($to, $subject, $message, $headers);
-       // } // end form is valid
+        } // end if pic is submit
     } //something else...?
 }// ends if form was submitted.
 //#############################################################################
@@ -365,6 +375,7 @@ if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked w
     ?>
 
         <form action="<?php print $phpSelf; ?>"
+              enctype="multipart/form-data"
               method="post"
               id="frmRegister">
 
@@ -416,19 +427,19 @@ if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked w
                            >
                 </label> 
                 
-<!-- comment out 
+                
+                <input name="MAX_FILE_SIZE" value="102400" type="hidden">
 		<label for="imgProfilePic">Profile Picture
                     <input type="file" id="fileToUpload" name="fileToUpload"
                            accept="image/gif, image/jpeg, image/png, image/jpg"
                            tabindex="450" 
                            >
                 </label>
--->               
+
                 
                 
 
                 <fieldset class="buttons">
-                    <legend></legend>
                     <input type="submit" id="btnSubmit" name="btnSubmit" value="Sign Up" tabindex="900" class="button">
                 </fieldset> <!-- ends buttons -->
 
