@@ -207,7 +207,7 @@ if (isset($_POST["btnSubmit"])) {
     if ($dataEntered) { // closing of if marked with: end body submit
         print "<h1>Record Saved</h1> ";
         print "<p>Return to your <a href='profile.php'>Task List</a></p>";
-    } else {
+    } else {echo "error";}
 //####################################
 //
 // SECTION 3b Error Messages
@@ -222,9 +222,9 @@ if (isset($_POST["btnSubmit"])) {
             print "</ol>\n";
             print '</div>';
         }
-        ?>
+        ?> 
 
-        <form action="/cs148/assignment10/manage_task.php"
+        <form action="/cs148/assignment10/manage_task.php?self"
               method="post"
               id="frmRegister">
             <fieldset id="Make-a-Task">
@@ -233,7 +233,7 @@ if (isset($_POST["btnSubmit"])) {
                        value="<?php print $taskId; ?>"
                        >
 
-                <label for="lstCategory">Category
+             <!--   <label for="lstCategory">Category
                     <select id="lstCategory"
                             name="lstCategory"
                             tabindex="100" >
@@ -248,7 +248,7 @@ if (isset($_POST["btnSubmit"])) {
                                 foreach ($list2 as $row) {
                                     print "<option value = '" . $row["fldCategory"] . "'>" . $row["fldCategory"] . "</option>\n";
                                 }
-                                ?>
+                                ?> --!>
                     </select>
                 </label>
                 <label for="txtTask">Task
