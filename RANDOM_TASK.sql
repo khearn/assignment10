@@ -5,11 +5,11 @@ CREATE TABLE IF NOT EXISTS tblUsers (
     fldFirstName varchar(100) NOT NULL,
     fldLastName varchar(100) NOT NULL,
     fldDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-/*    fldGender char(1) DEFAULT 'F', ---  dont use this row for now! */
+    fldGender varchar(15) DEFAULT 'Female',
     fldHash tinyint(1) NOT NULL DEFAULT '0',
     fldLinkCheck int(1) NOT NULL,
-    fldApprove text NUll,
-    fldApproveCheck NULL,
+    fldApprove text DEFAULT NUll,
+    fldApproveCheck int(11) NULL,
     PRIMARY KEY (pmkUsername),
     UNIQUE KEY (pmkEmail),
     UNIQUE KEY (pmkUsername)

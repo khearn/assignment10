@@ -207,7 +207,8 @@ if (isset($_POST["btnSubmit"])) {
     if ($dataEntered) { // closing of if marked with: end body submit
         print "<h1>Record Saved</h1> ";
         print "<p>Return to your <a href='profile.php'>Task List</a></p>";
-    } else {echo "error";}
+    } else {
+
 //####################################
 //
 // SECTION 3b Error Messages
