@@ -16,15 +16,16 @@ if ($debug)
     print "<p>DEBUG MODE IS ON</p>";
 
 require_once('../bin/myDatabase.php');
-/*
-  $dbUserName = 'mljoy_writer';
-  $whichPass = "w"; //flag for which one to use.
-  $dbName = 'MLJOY_RANDOM_TASK';
- */
-$dbUserName = 'khearn_writer';
+
+$dbUserName = 'mljoy_writer';
 $whichPass = "w"; //flag for which one to use.
-$dbName = 'KHEARN_RANDOM_TASK';
-$thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
+$dbName = 'MLJOY_RANDOM_TASK';
+
+/*$dbUserName = 'khearn_writer';
+$whichPass = "w"; //flag for which one to use.
+$dbName = 'KHEARN_RANDOM_TASK'; */
+
+$thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName); 
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 //
 // SECTION: 1b Security
@@ -80,6 +81,7 @@ $mailed = false; // have we mailed the information to the user?
 if (isset($_POST["btnSubmit"])) {
     //if (isset($_FILES['image']) && $_FILES['fileToUpload']['size'] > 0) {
 
+
         $email = filter_var($_POST["txtEmail"], FILTER_SANITIZE_EMAIL);
         $username = htmlentities($_POST["txtUsername"], ENT_QUOTES, "UTF-8");
         $password = htmlentities($_POST["pwdPassword"], ENT_QUOTES, "UTF-8");
@@ -132,6 +134,47 @@ if (isset($_POST["btnSubmit"])) {
 //	echo 'Ya done goofed, eh?';
         }
 
+$fp = fopen($pic, 'r');
+$data = fread($fp, filesize($pic));
+$data = addslashes($data);
+fclose($fp);
+
+    
+    
+    //without picture.
+    $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldFirstName, fldLastName, fldDate, fldHash) VALUES ('" . $email . "', '" . $username . "', '" . $password . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $hash . "')";
+     
+    //With Picture
+    $query = "INSERT INTO tblPicture(fnkUsername, fldPicture) VALUES ('".$username."', '".$pic."') ";
+    
+    $server = "webdb.uvm.edu";
+	$user =  "mljoy_admin";
+	$myPassword = "TwV28wTWrWZz95vk";
+	$dataBase = "MLJOY_RANDOM_TASK";
+
+	/*$server = "webdb.uvm.edu";
+	$user =  "khearn_admin";
+	$myPassword = "NetWt24oz";
+	$dataBase = "KHEARN_RANDOM_TASK"; */
+	
+	$connect = mysqli_connect($server, $user, $myPassword, $dataBase);
+	
+	if($connect->connect_error) {
+	die("CONNECTION FAILED: " . $connect->connect_error);
+	}
+	
+	else{
+	//echo 'This connected';
+	}
+	
+	if($connect->query($query) === TRUE) {
+//	echo 'This worked';
+	}
+	
+	else {
+	echo 'Ya done goofed, eh?';
+	}
+    
 //    echo $query;
 
 
@@ -463,13 +506,98 @@ if (isset($_POST["btnSubmit"])) {
                                   tabindex="340">Female</label>
                 </fieldset>
                 
+
 <!--
                 <input name="MAX_FILE_SIZE" value="102400" type="hidden">
                 <label for="imgProfilePic">Profile Picture
+
+                
+                --!>
+                
+                
+				<label for="imgProfilePic">Profile Picture
+
                     <input type="file" id="fileToUpload" name="fileToUpload"
                            accept="image/gif, image/jpeg, image/png, image/jpg"
                            tabindex="450" 
                            >
+                           <?php
+							/*** check if a file was submitted ***/
+								if(!isset($_FILES['userfile']))
+    									{
+   										 echo '<p>Please select a file</p>';
+  										  }
+								else
+  									  {
+  										  try    {
+       												 upload();
+        				/*** give praise and thanks to the php gods ***/
+       												 echo '<p>Thank you for submitting</p>';
+       											 }
+    										catch(Exception $e)
+       											 {
+       												 echo '<h4>'.$e->getMessage().'</h4>';
+       											 }
+    								}
+?>
+<?php
+/**
+ *
+ * the upload function
+ * 
+ * @access public
+ *
+ * @return void
+ *
+ */
+function upload(){
+/*** check if a file was uploaded ***/
+if(is_uploaded_file($_FILES['userfile']['tmp_name']) && getimagesize($_FILES['userfile']['tmp_name']) != false)
+    {
+    /***  get the image info. ***/
+    $size = getimagesize($_FILES['userfile']['tmp_name']);
+    /*** assign our variables ***/
+    $type = $size['mime'];
+    $imgfp = fopen($_FILES['userfile']['tmp_name'], 'rb');
+    $size = $size[3];
+    $name = $_FILES['userfile']['name'];
+    $maxsize = 99999999;
+
+
+    /***  check the file is less than the maximum file size ***/
+    if($_FILES['userfile']['size'] < $maxsize )
+        {
+        /*** connect to db ***/
+        $dbh = new PDO("mysql:host=localhost;dbname=testblob", 'username', 'password');
+
+                /*** set the error mode ***/
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            /*** our sql query ***/
+        $stmt = $dbh->prepare("INSERT INTO testblob (image_type ,image, image_size, image_name) VALUES (? ,?, ?, ?)");
+
+        /*** bind the params ***/
+        $stmt->bindParam(1, $type);
+        $stmt->bindParam(2, $imgfp, PDO::PARAM_LOB);
+        $stmt->bindParam(3, $size);
+        $stmt->bindParam(4, $name);
+
+        /*** execute the query ***/
+        $stmt->execute();
+        }
+    else
+        {
+        /*** throw an exception is image is not of type ***/
+        throw new Exception("File Size Error");
+        }
+    }
+else
+    {
+    // if the file is not less than the maximum allowed, print an error
+    throw new Exception("Unsupported Image Format!");
+    }
+}
+?>
                 </label>
 -->
 
