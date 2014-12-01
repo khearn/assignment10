@@ -88,7 +88,7 @@ if (isset($_POST["btnSubmit"])) {
     $fname = htmlentities($_POST["txtfname"], ENT_QUOTES, "UTF-8");
     $lname = htmlentities($_POST["txtlname"], ENT_QUOTES, "UTF-8");
     $confirm = sha1($email);
-    $hash = sha1($password);
+    //$hash = sha1($password);
     $gender = htmlentities($_POST["radGender"], ENT_QUOTES, "UTF-8");
     //$pic = file_get_contents($_FILES['fileToUpload']['name']);
     //$approved = sha1($confirm);
@@ -104,7 +104,8 @@ if (isset($_POST["btnSubmit"])) {
 
 
     //without picture.
-    $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldFirstName, fldLastName, fldDate, fldGender, fldHash) VALUES ('" . $email . "', '" . $username . "', '" . $password . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $selectedValue . "', '" . $hash . "')";
+    $query = "INSERT INTO tblUsers(pmkEmail, pmkUsername, fldPassword, fldFirstName, fldLastName, fldDate, fldGender, fldHash) "
+            . "VALUES ('" . $email . "', '" . $username . "', '" . $password . "', '" . $fname . "', '" . $lname . "', '" . $date . "', '" . $gender . "', '" . $hash . "')";
 
     //With Picture
 //        $query = "INSERT INTO tblPicture(fnkUsername, fldPicture) VALUES ('" . $username . "', '" . $pic . "') ";
@@ -470,6 +471,12 @@ if (isset($_POST["btnSubmit"])) {
                                   value="Female"
                                   <?php if ($gender == "Female");  ?>
                                   tabindex="340">Female</label>
+                    <label><input type="radio" 
+                                  id="radGenderOther" 
+                                  name="radGender" 
+                                  value="Other"
+                                  <?php if ($gender == "Other");  ?>
+                                  tabindex="340">Other</label>
                 </fieldset>
 
                 <!--

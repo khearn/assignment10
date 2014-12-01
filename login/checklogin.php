@@ -1,24 +1,31 @@
 <?php
-/*
+
 require_once('../bin/myDatabase.php');
-$dbUserName = 'khearn_admim';
-$whichPass = "a"; //flag for which one to use.
-$dbName = 'KHEARN_RANDOM_TASK';
+$dbUserName = 'mljoy_writer';
+$whichPass = "w"; //flag for which one to use.
+$dbName = 'MLJOY_RANDOM_TASK';
+/*
+$dbUserName = 'khearn_writer';
+$whichPass = "w"; //flag for which one to use.
+$dbName = 'KHEARN_RANDOM_TASK'; 
+*/
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 
 // Connect to server and select databse.
 //mysql_connect($thisDatabase, $email, $password)or die("cannot connect");
 //mysql_select_db($dbName)or die("cannot select DB");
-
+/*
 // username and password sent from form 
-$email = $_GET['pmkEmail'];
-$hash = $_GET['fldPassword'];
+$myusername = $_GET['pmkUsername'];
+$mypassword = $_GET['fldPassword'];
 
 
 
 
-$sql = "SELECT pmkEmail, fldPassword FROM tblUsers WHERE pmkEmail = " . $_SESSION['myusername'] . " "
-        . " AND fldPassword = " . $_SESSION['username'] . "";
+$sql = "SELECT pmkUsername, fldPassword, pmkEmail "
+        . "FROM tblUsers "
+        . "WHERE pmkUsername = " . $_SESSION['myusername'] . " "
+        . " AND fldPassword = " . $_SESSION['mypassword'] . "";
 $records = array($sql);
 
 // Mysql_num_row is counting table row
@@ -28,29 +35,13 @@ $count = mysql_num_rows($records);
 if ($count == 1) {
 
 // Register $myusername, $mypassword and redirect to file "profile.php"
-    session_register($email);
-    session_register($hash);
+    session_register($myusername);
+    session_register($mypassword);
     //header("location:profile.php");
 } else {
-    echo "Wrong Username or Password";
+    print "Wrong Username or Password";
 }
 */
-?>
- 
-
-<?php
-
-require_once('../bin/myDatabase.php');
-
-$dbUserName = 'mljoy_writer';
-$whichPass = "w"; //flag for which one to use.
-$dbName = 'MLJOY_RANDOM_TASK';
-/*
-$dbUserName = 'khearn_writer';
-$whichPass = "w"; //flag for which one to use.
-$dbName = 'KHEARN_RANDOM_TASK'; */
-
-$thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 
 // username and password sent from form 
 $myusername=$_POST['myusername']; 
@@ -61,9 +52,12 @@ $myusername = stripslashes($myusername);
 $mypassword = stripslashes($mypassword);
 $myusername = mysql_real_escape_string($myusername);
 $mypassword = mysql_real_escape_string($mypassword);
-$encrypted_mypassword=sha1($mypassword);
-echo $encrypt_password; 
-$sql="SELECT * FROM tblUsers WHERE pmkUsername='$myusername' and fldPassword='$encrypted_mypassword'";
+//$encrypted_mypassword=sha1($mypassword);
+//echo $encrypt_password; 
+$sql="SELECT pmkUsername, fldPassword, pmkEmail ";
+$sql .= "FROM tblUsers ";
+$sql .= "WHERE pmkUsername='$myusername' ";
+$sql .= "AND fldPassword='$mypassword'";
 $result=mysql_query($sql);
 
 // Mysql_num_row is counting table row
@@ -76,9 +70,8 @@ if($count==1){
 session_register("myusername");
 session_register("mypassword"); 
 header("location:login_success.php");
+} elseif(!$count==1){
+print "Wrong Username or Password";
 }
-else {
-echo "Wrong Username or Password";
-}
-ob_end_flush();
+//ob_end_flush();
 ?>

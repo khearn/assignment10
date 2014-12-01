@@ -221,7 +221,7 @@ if (isset($_POST["btnSubmit"])) {
         }
         ?> 
 
-        <form action="/cs148/assignment10/manage_task.php"
+        <form action="<?php print $phpSelf; ?>"
               method="post"
               id="frmRegister">
             <fieldset id="Make-a-Task">
