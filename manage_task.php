@@ -124,13 +124,23 @@ if (isset($_POST["btnSubmit"])) {
             print "<p>Form is valid</p>";
 //M/D/Y --> Y-M-D
 
+<<<<<<< HEAD
+		$query = "START TRANSACTION; INSERT INTO tblTasks(fnkEmail, fldTask, fldDescription, fld ToDoDate) VALUES ('khearn@uvm.edu', '" . $task . "', '" . $details . "', '" . $toDoDate . "'); INSERT INTO tblRelationship(fnkEmail, fnkCategoryId, fnkTaskId) VALUES ('" . $email . "', '" . $catId . "', '".$taskId."'); INSERT INTO tblCategories(pmkCategoryId, fldCategory)VALUES ('" . $catId . "', '" . $category . "'); COMMIT";
+                 /* . "VALUES ('" . $email . "', '" . $catId . "', '".$taskId."')";  */      
+         /* $query = "INSERT INTO tblTasks(fnkEmail, fldTask, fldDescription, fldToDoDate) "
+=======
          
           $query = "INSERT INTO tblTasks(fnkEmail, fldTask, fldDescription, fldToDoDate) "
+>>>>>>> FETCH_HEAD
                   . "VALUES ('khearn@uvm.edu', '" . $task . "', '" . $details . "', '" . $toDoDate . "')";
           $query = "INSERT INTO tblRelationship(fnkEmail, fnkCategoryId, fnkTaskId) "
                   . "VALUES ('" . $email . "', '" . $catId . "', '".$taskId."')";
           $query = "INSERT INTO tblCategories(pmkCategoryId, fldCategory) "
+<<<<<<< HEAD
+                  . "VALUES ('" . $catId . "', '" . $category . "')"; */
+=======
                   . "VALUES ('" . $catId . "', '" . $category . "')";
+>>>>>>> FETCH_HEAD
 
         $data = array($task);
         $data[] = $details;
