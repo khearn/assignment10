@@ -124,11 +124,11 @@ if (isset($_POST["btnSubmit"])) {
             print "<p>Form is valid</p>";
 //M/D/Y --> Y-M-D
 
-<<<<<<< HEAD
+
 		$query = "START TRANSACTION; INSERT INTO tblTasks(fnkEmail, fldTask, fldDescription, fld ToDoDate) VALUES ('khearn@uvm.edu', '" . $task . "', '" . $details . "', '" . $toDoDate . "'); INSERT INTO tblRelationship(fnkEmail, fnkCategoryId, fnkTaskId) VALUES ('" . $email . "', '" . $catId . "', '".$taskId."'); INSERT INTO tblCategories(pmkCategoryId, fldCategory)VALUES ('" . $catId . "', '" . $category . "'); COMMIT";
                  /* . "VALUES ('" . $email . "', '" . $catId . "', '".$taskId."')";  */      
          /* $query = "INSERT INTO tblTasks(fnkEmail, fldTask, fldDescription, fldToDoDate) "
-=======
+
          
           $query = "INSERT INTO tblTasks(fnkEmail, fldTask, fldDescription, fldToDoDate) "
 >>>>>>> FETCH_HEAD
@@ -138,9 +138,7 @@ if (isset($_POST["btnSubmit"])) {
           $query = "INSERT INTO tblCategories(pmkCategoryId, fldCategory) "
 <<<<<<< HEAD
                   . "VALUES ('" . $catId . "', '" . $category . "')"; */
-=======
-                  . "VALUES ('" . $catId . "', '" . $category . "')";
->>>>>>> FETCH_HEAD
+
 
         $data = array($task);
         $data[] = $details;
@@ -184,7 +182,7 @@ if (isset($_POST["btnSubmit"])) {
         }
         ?> 
 
-        <form action="/cs148/assignment10/manage_task.php"
+        <form action="<?php print $phpSelf; ?>"
               method="post"
               id="frmRegister">
             <fieldset id="Make-a-Task">
