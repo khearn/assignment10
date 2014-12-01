@@ -17,13 +17,13 @@ if ($debug)
 
 require_once('../bin/myDatabase.php');
 
-$dbUserName = 'mljoy_writer';
+/*$dbUserName = 'mljoy_writer';
 $whichPass = "w"; //flag for which one to use.
-$dbName = 'MLJOY_RANDOM_TASK';
+$dbName = 'MLJOY_RANDOM_TASK';*/
 
-/* $dbUserName = 'khearn_writer';
+ $dbUserName = 'khearn_writer';
   $whichPass = "w"; //flag for which one to use.
-  $dbName = 'KHEARN_RANDOM_TASK'; */
+  $dbName = 'KHEARN_RANDOM_TASK'; 
 
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%

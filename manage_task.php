@@ -44,11 +44,11 @@ $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 
 $yourURL = $domain . $phpSelf;
 
-  $task = "";
-  $details = "";
-  $toDoDate = "";
-  $category = "";
-  $taskId = "";
+$task = "";
+$details = "";
+$toDoDate = "";
+$category = "";
+$taskId = "";
 
 
 $taskERROR = false;
@@ -78,7 +78,7 @@ if (isset($_POST["btnSubmit"])) {
         die($msg);
     }
 
-    //sanitize
+//sanitize
     $task = htmlentities($_POST["txtTask"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $task;
     $details = htmlentities($_POST["txtDetails"], ENT_QUOTES, "UTF-8");
@@ -88,7 +88,7 @@ if (isset($_POST["btnSubmit"])) {
     $category = htmlentities($_POST["lstCategory"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $category;
 
-    //validate
+//validate
     if ($task == "") {
         $errorMsg[] = "Please enter a task you would like to save";
         $taskERROR = true;
@@ -118,19 +118,20 @@ if (isset($_POST["btnSubmit"])) {
         $categoryERROR = true;
     }
 
-    //Process Form - Passed Validation
+//Process Form - Passed Validation
     if (!$errorMsg) {
         if ($debug)
             print "<p>Form is valid</p>";
 //M/D/Y --> Y-M-D
 
-         
-          $query = "INSERT INTO tblTasks(fnkEmail, fldTask, fldDescription, fldToDoDate) "
-                  . "VALUES ('khearn@uvm.edu', '" . $task . "', '" . $details . "', '" . $toDoDate . "')";
-          $query = "INSERT INTO tblRelationship(fnkEmail, fnkCategoryId, fnkTaskId) "
-                  . "VALUES ('" . $email . "', '" . $catId . "', '".$taskId."')";
-          $query = "INSERT INTO tblCategories(pmkCategoryId, fldCategory) "
-                  . "VALUES ('" . $catId . "', '" . $category . "')";
+        $query = "START TRANSACTION";
+        $query = "INSERT INTO tblTasks(fnkEmail, fldTask, fldDescription, fldToDoDate) "
+                . "VALUES ('khearn@uvm.edu', '" . $task . "', '" . $details . "', '" . $toDoDate . "')";
+        $query = "INSERT INTO tblRelationship(fnkEmail, fnkCategoryId, fnkTaskId) "
+                . "VALUES ('" . $email . "', '" . $catId . "', '" . $taskId . "')";
+        $query = "INSERT INTO tblCategories(pmkCategoryId, fldCategory) "
+                . "VALUES ('" . $catId . "', '" . $category . "')";
+        $query .= "COMMIT";
 
         $data = array($task);
         $data[] = $details;
@@ -141,6 +142,48 @@ if (isset($_POST["btnSubmit"])) {
 //        $data[] = $email;
 
         $records = $thisDatabase->insert($query, $data);
+
+        /*
+          $server = "webdb.uvm.edu";
+          $user =  "mljoy_admin";
+          $myPassword = "TwV28wTWrWZz95vk";
+          $dataBase = "MLJOY_RANDOM_TASK"; */
+
+        $server = "webdb.uvm.edu";
+        $user = "khearn_admin";
+        $myPassword = "NetWt24oz";
+        $dataBase = "KHEARN_RANDOM_TASK";
+
+        $connect = mysqli_connect($server, $user, $myPassword, $dataBase);
+
+        if ($connect->connect_error) {
+            die("CONNECTION FAILED: " . $connect->connect_error);
+        } else {
+//echo 'This connected';
+        }
+
+        if ($connect->query($query) === TRUE) {
+//	echo 'This worked';
+        } else {
+            
+        }
+        if ($debug) {
+            print $query;
+        }
+
+
+        if ($debug) {
+            print $query;
+        }
+
+
+        /* $records = $thisDatabase->db->insert($query); */
+
+        if ($debug) {
+            print "<div>" . count($records) . " records created.</div>";
+            print_r($data);
+        }
+        $firstTime = true;
     }
 }
 ?>
@@ -148,8 +191,8 @@ if (isset($_POST["btnSubmit"])) {
 <article>
     <h2>Create a Task</h2>
 
-    
-        <?php
+
+    <?php
     if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) {
         print "<h1>Record ";
         print "Saved</h1>";
@@ -157,7 +200,7 @@ if (isset($_POST["btnSubmit"])) {
         print "<p>Return to your <a href='profile.php'>Task List</a></p>";
         print "</aside>";
     } else {
-        
+
 //####################################
 //
 // SECTION 3b Error Messages
@@ -217,8 +260,8 @@ if (isset($_POST["btnSubmit"])) {
                     <input type="text" id="datepicker" name="datepicker" value="<?php print $toDoDate; ?>">
                 </label>
 
-            
-            <input type="submit" id="btnSubmit" name="btnSubmit" value="Make A Task" tabindex="900" class="button">                    
+
+                <input type="submit" id="btnSubmit" name="btnSubmit" value="Make A Task" tabindex="900" class="button">                    
             </fieldset>
         </form>
 
