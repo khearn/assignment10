@@ -28,13 +28,13 @@ print '<h1>Registration Confirmation</h1>';
 
 require_once('../bin/myDatabase.php');
 
-$dbUserName = 'mljoy_writer';
+/*$dbUserName = 'mljoy_writer';
 $whichPass = "w"; //flag for which one to use.
-$dbName = 'MLJOY_RANDOM_TASK';
+$dbName = 'MLJOY_RANDOM_TASK'; */
 
-/*$dbUserName = 'khearn_writer';
+$dbUserName = 'khearn_writer';
 $whichPass = "w"; //flag for which one to use.
-$dbName = 'KHEARN_RANDOM_TASK'; */
+$dbName = 'KHEARN_RANDOM_TASK'; 
 
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 
@@ -46,7 +46,7 @@ if ($debug)
     print "<p>DEBUG MODE IS ON</p>";
 //%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
 
-$query = "SELECT fldHash FROM tblUsers WHERE fldHash = '$check'";
+$query = "SELECT fldHash FROM tblUsers WHERE fldHash = '" . $check . "'";
 
 //execute query
 $results = $thisDatabase->select($query);
@@ -81,14 +81,14 @@ foreach ($results as $row) {
 
 if ($results != "") {
 
-$query = "UPDATE tblUsers SET fldLinkCheck = '1' WHERE fldHash = '$check' ";
+$query = "UPDATE tblUsers SET fldLinkCheck = '1' WHERE fldHash = '" . $check . "' ";
 $records = $thisDatabase->insert($query);
 
 print "<aside>";
 print "<p> Congratulations! Account verified. An email has been sent to an administrator for approval.";
 print "</aside>";
 
-$query = "SELECT fldApprove FROM tblUsers WHERE fldHash = '$check' ";
+$query = "SELECT fldApprove FROM tblUsers WHERE fldHash = '" . $check . "' ";
 
 $results = $thisDatabase->select($query);
 
@@ -121,13 +121,13 @@ foreach ($results as $row) {
 
 
 $message = "User for web page has been verified. ";
-$message .= "https://mljoy.w3.uvm.edu/cs148/assignment10/approve.php?q=";
-//$message .= "https://khearn.w3.uvm.edu/cs148/assignment10/approve.php?q=";
+//$message .= "https://mljoy.w3.uvm.edu/cs148/assignment10/approve.php?q=";
+$message .= "https://khearn.w3.uvm.edu/cs148/assignment10/approve.php?q=";
 $message .= "$value";
 
 $subject = "User Registration";
-$to = "mljoy@uvm.edu";
-//$to = "khearn@uvm.edu";
+//$to = "mljoy@uvm.edu";
+$to = "khearn@uvm.edu";
 $headers = " ";
 mail($to, $subject, $message, $headers);
 }
@@ -216,7 +216,7 @@ if (isset($_GET["q"])) {
 
         $to = $email;
         $cc = "";
-        $bcc = "$adminEmail";
+        $bcc = $adminEmail;
         $from = "Random Task <noreply@yoursite.com>";
         $subject = "Random Task Confirmed: Approve?";
         $messageE = "<p>Your membership has been approved. Welcome Aboard!</p>";
@@ -228,7 +228,7 @@ if (isset($_GET["q"])) {
             if (!$mailed) {
                 print "NOT ";
             }
-            print "mailed to admin ". $to . ".</p>";
+            print "mailed to admin '". $to . "'.</p>";
         }
 
         //notify user

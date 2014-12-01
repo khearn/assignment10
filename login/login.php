@@ -290,7 +290,7 @@ if (isset($_POST["btnSubmit"]) AND empty($errorMsg)) { // closing of if marked w
      */
     ?>
 
-<!--       <form action="<?php print $phpSelf; ?>"
+<!--       <form action="<?php //print $phpSelf; ?>"
               method="post"
               id="frmRegister">
 
