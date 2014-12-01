@@ -22,19 +22,19 @@ print '<article id="main">';
 //connect to database
 require_once('../bin/myDatabase.php');
 
-$dbUserName = 'mljoy_writer';
-$whichPass = "w"; //flag for which one to use.
-$dbName = 'MLJOY_RANDOM_TASK';
- 
-//$dbUserName = 'khearn_writer';
+//$dbUserName = 'mljoy_writer';
 //$whichPass = "w"; //flag for which one to use.
-//$dbName = 'KHEARN_RANDOM_TASK'; 
+//$dbName = 'MLJOY_RANDOM_TASK';
+ 
+$dbUserName = 'khearn_writer';
+$whichPass = "w"; //flag for which one to use.
+$dbName = 'KHEARN_RANDOM_TASK'; 
 
 	$thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 	
 //build query
 
-$query = "SELECT fldApproveCheck FROM tblUsers WHERE fldApproveCheck = '$check'";
+$query = "SELECT fldApproveCheck FROM tblUsers WHERE fldApproveCheck = '" . $check . "'";
 
 //execute query
 $results = $thisDatabase->select($query);
@@ -69,13 +69,13 @@ foreach ($results as $row) {
 
 if ($results != "") {
 
-$query = "UPDATE tblUsers SET fldApproveCheck = '1' WHERE fldApprove = '$check' ";
+$query = "UPDATE tblUsers SET fldApproveCheck = '1' WHERE fldApprove = '" . $check . "' ";
 $records = $thisDatabase->insert($query);
 print "<aside>";
 print "<p> Admin has approved the account.";
 print "</aside>";
 
-$query = "SELECT fldEmail FROM tblUsers WHERE fldApprove = '$check' ";
+$query = "SELECT fldEmail FROM tblUsers WHERE fldApprove = '" . $check . "' ";
 
 $results = $thisDatabase->select($query);
 
@@ -106,11 +106,11 @@ foreach ($results as $row) {
     }
     
 
-$message = "An administrator has verified your account. Copy this address into your address bar to get started! https://mljoy.w3.uvm.edu/cs148/assignment10/manage_task.php";
-//$message = "An administrator has verified your account. Copy this address into your address bar to get started! https://khearn.w3.uvm.edu/cs148/assignment10/manage_task.php";
+//$message = "An administrator has verified your account. Copy this address into your address bar to get started! https://mljoy.w3.uvm.edu/cs148/assignment10/manage_task.php";
+$message = "An administrator has verified your account. Copy this address into your address bar to get started! https://khearn.w3.uvm.edu/cs148/assignment10/manage_task.php";
 
 $subject = "User Approval";
-$to = "$value";
+$to = $value;
 $headers = " ";
 mail($to, $subject, $message, $headers);
 }
