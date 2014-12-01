@@ -28,13 +28,13 @@ print '<h1>Registration Confirmation</h1>';
 
 require_once('../bin/myDatabase.php');
 
-/*$dbUserName = 'mljoy_writer';
+$dbUserName = 'mljoy_writer';
 $whichPass = "w"; //flag for which one to use.
-$dbName = 'MLJOY_RANDOM_TASK'; */
+$dbName = 'MLJOY_RANDOM_TASK'; 
 
-$dbUserName = 'khearn_writer';
+/*$dbUserName = 'khearn_writer';
 $whichPass = "w"; //flag for which one to use.
-$dbName = 'KHEARN_RANDOM_TASK'; 
+$dbName = 'KHEARN_RANDOM_TASK'; */
 
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 
@@ -121,13 +121,13 @@ foreach ($results as $row) {
 
 
 $message = "User for web page has been verified. ";
-//$message .= "https://mljoy.w3.uvm.edu/cs148/assignment10/approve.php?q=";
-$message .= "https://khearn.w3.uvm.edu/cs148/assignment10/approve.php?q=";
+$message .= "https://mljoy.w3.uvm.edu/cs148/assignment10/approve.php?q=";
+//$message .= "https://khearn.w3.uvm.edu/cs148/assignment10/approve.php?q=";
 $message .= "$value";
 
 $subject = "User Registration";
-//$to = "mljoy@uvm.edu";
-$to = "khearn@uvm.edu";
+$to = "mljoy@uvm.edu";
+//$to = "khearn@uvm.edu";
 $headers = " ";
 mail($to, $subject, $message, $headers);
 }

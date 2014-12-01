@@ -37,9 +37,14 @@ include "include/nav.php";
 
 
 require_once('../bin/myDatabase.php');
-$dbUserName = 'khearn_writer';
+$dbUserName = 'mljoy_writer';
 $whichPass = "w"; //flag for which one to use.
-$dbName = 'KHEARN_RANDOM_TASK';
+$dbName = 'MLJOY_RANDOM_TASK';
+
+/* $dbUserName = 'khearn_writer';
+  $whichPass = "w"; //flag for which one to use.
+  $dbName = 'KHEARN_RANDOM_TASK'; 
+*/
 $thisDatabase = new myDatabase($dbUserName, $whichPass, $dbName);
 
 $yourURL = $domain . $phpSelf;
@@ -143,16 +148,15 @@ if (isset($_POST["btnSubmit"])) {
 
         $records = $thisDatabase->insert($query, $data);
 
-        /*
           $server = "webdb.uvm.edu";
           $user =  "mljoy_admin";
           $myPassword = "TwV28wTWrWZz95vk";
-          $dataBase = "MLJOY_RANDOM_TASK"; */
-
+          $dataBase = "MLJOY_RANDOM_TASK"; 
+/*
         $server = "webdb.uvm.edu";
         $user = "khearn_admin";
         $myPassword = "NetWt24oz";
-        $dataBase = "KHEARN_RANDOM_TASK";
+        $dataBase = "KHEARN_RANDOM_TASK";*/
 
         $connect = mysqli_connect($server, $user, $myPassword, $dataBase);
 
